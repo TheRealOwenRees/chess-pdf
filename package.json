@@ -1,0 +1,46 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mliebelt/pgn-viewer": "^1.6.6",
+    "@nextui-org/react": "^2.1.13",
+    "@tanstack/react-query": "^4.36.1",
+    "@trpc/client": "^10.42.0",
+    "@trpc/next": "^10.42.0",
+    "@trpc/react-query": "^10.42.0",
+    "@trpc/server": "^10.42.0",
+    "framer-motion": "^10.16.4",
+    "next": "13.5.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.47.0",
+    "react-icons": "^4.11.0",
+    "sharp": "^0.32.6",
+    "superjson": "^2.2.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "cypress": "^13.5.0",
+    "eslint": "8.49.0",
+    "eslint-config-next": "^13.5.6",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.6",
+    "sass": "^1.69.4",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}

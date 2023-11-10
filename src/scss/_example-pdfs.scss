@@ -1,0 +1,15 @@
+.example-pdfs {
+  max-width: 450px;
+  position: relative;
+  justify-self: center;
+  transform: translate(-10%, 10%);
+  img {
+    width: 300px;
+    box-shadow: -1px 1px 62px -18px black;
+    &:nth-child(2) {
+      position: absolute;
+      top: -10%;
+      right: -20%;
+    }
+  }
+}
