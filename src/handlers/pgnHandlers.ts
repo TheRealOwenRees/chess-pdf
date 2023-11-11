@@ -58,12 +58,8 @@ export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState:
   e.preventDefault()
   const pgnString = buildPgnString(gameState)
   const { diagrams } = gameState
-  // TODO change URL depending on environment
   try {
-    const apiBaseURL =
-      process.env.NODE_ENV === 'production'
-        ? process.env.API_BASE_URL as string
-        : 'http://localhost:5000/api/v1'
+    const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string
     const response = await fetch(`${apiBaseURL}/pdf`, {
     method: 'POST',
     headers: {
