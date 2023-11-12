@@ -1,4 +1,4 @@
-import { GameAction, GameProps } from "@/types";
+import { GameAction, GameProps, Message } from "@/types";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
@@ -55,7 +55,12 @@ export const handleSavePGN = (e: MouseEvent<HTMLButtonElement>, gameState: GameP
   downloadString(pgnString, 'game.pgn')
 }
 
-export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState: GameProps, setGeneratingPDF: Dispatch<SetStateAction<boolean>>) => {
+export const handleSavePDF = async (
+    e: MouseEvent<HTMLButtonElement>,
+    gameState: GameProps,
+    setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
+    setMessage: Dispatch<SetStateAction<Message>>
+) => {
   e.preventDefault()
   setGeneratingPDF(true)
   const pgnString = buildPgnString(gameState)
@@ -71,10 +76,21 @@ export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState:
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams })
   })
     openPDFInNewTab(await response.blob())
+    setMessage({
+      type: 'success',
+      message: 'PDF generated successfully'
+    })
   } catch (error) {
-    // @ts-ignore // TODO fix
-    throw new Error(`Error rendering PDF: ${error.message}`)
+    setMessage({
+      type: 'error',
+      message: 'Something went wrong generating the PDF'
+    })
+    // TODO send error message to discord
   } finally {
     setGeneratingPDF(false)
+    setTimeout(() => setMessage({
+      type: '',
+      message: ''
+    }), 10000)
   }
 }
