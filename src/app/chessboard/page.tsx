@@ -41,6 +41,7 @@ const Chessboard = () => {
                  gameDispatch,
                  checkboxRef)}
         />
+
       </div>
     )
   }
