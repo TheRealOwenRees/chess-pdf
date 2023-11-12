@@ -1,7 +1,8 @@
 import { GameAction, GameProps } from "@/types";
-import { ChangeEvent, Dispatch, MouseEvent } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
+import { openPDFInNewTab } from "@/utils/pdfUtils";
 
 // TODO write tests for these handlers
 export const handleClearGame = (
@@ -54,10 +55,12 @@ export const handleSavePGN = (e: MouseEvent<HTMLButtonElement>, gameState: GameP
   downloadString(pgnString, 'game.pgn')
 }
 
-export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState: GameProps) => {
+export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState: GameProps, setGeneratingPDF: Dispatch<SetStateAction<boolean>>) => {
   e.preventDefault()
+  setGeneratingPDF(true)
   const pgnString = buildPgnString(gameState)
   const { diagrams } = gameState
+
   try {
     const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string
     const response = await fetch(`${apiBaseURL}/pdf`, {
@@ -67,15 +70,11 @@ export const handleSavePDF = async (e: MouseEvent<HTMLButtonElement>, gameState:
     },
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams })
   })
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    // opening of PDF in new tab // TODO move into separate function?
-    const blob = await response.blob()
-    const url = window.URL.createObjectURL(blob)
-    window.open(url, '_blank')
+    openPDFInNewTab(await response.blob())
   } catch (error) {
     // @ts-ignore // TODO fix
     throw new Error(`Error rendering PDF: ${error.message}`)
+  } finally {
+    setGeneratingPDF(false)
   }
 }
