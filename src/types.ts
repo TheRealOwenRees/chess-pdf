@@ -86,3 +86,8 @@ export interface MessageStatus {
   isSending: boolean
   message: string
 }
+
+export interface Message {
+  type: string
+  message: string
+}

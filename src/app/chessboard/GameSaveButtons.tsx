@@ -1,8 +1,10 @@
+import { Message } from '@/types'
+
 import {handleSavePDF, handleSavePGN} from "@/handlers/pgnHandlers";
 import {useGameContext} from "@/context/GameContext";
-import {useState} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
 
-const GameSaveButtons = () => {
+const GameSaveButtons = ({ setMessage } : {setMessage: Dispatch<SetStateAction<Message>>}) => {
     const [generatingPDF, setGeneratingPDF] = useState(false)
     const savePDFButtonText = generatingPDF ? 'Generating...' : 'Save as PDF'
 
@@ -18,7 +20,7 @@ const GameSaveButtons = () => {
             <button type="button"
                     disabled={!gameState.pgn && !generatingPDF}
                     className="text-xs text-primary-500 font-semibold border border-primary-500 rounded-2xl py-2.5 px-4"
-                    onClick={(e) => handleSavePDF(e, gameState, setGeneratingPDF)}>
+                    onClick={(e) => handleSavePDF(e, gameState, setGeneratingPDF, setMessage)}>
                 {savePDFButtonText}
             </button>
         </div>
