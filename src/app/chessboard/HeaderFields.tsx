@@ -10,7 +10,7 @@ const HeaderFields = () => {
   }
 
   return (
-    <section className="mt-8">
+    <section className="mt-4">
       <Accordion
         itemClasses={itemClasses}
       >
