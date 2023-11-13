@@ -1,5 +1,3 @@
-import { DiagramProps } from "@/types";
-
 import { RefObject, useEffect } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { diagramCheckboxCheckedHandler, diagramCheckboxDisabledHandler } from "@/handlers/diagramCheckboxHandlers";
