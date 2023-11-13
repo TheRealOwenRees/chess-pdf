@@ -1,6 +1,8 @@
 import {Message} from '@/types'
 import {Dispatch, SetStateAction} from "react";
 
+import close from '@/assets/images/close.svg'
+
 const Alert = ({type, message, setMessage} : {
     type: string
     message: string,
