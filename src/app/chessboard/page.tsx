@@ -64,8 +64,8 @@ const Chessboard = () => {
                     {chessBoardMemoized}
                 </div>
                 {diagramCheckbox()}
-                <Alert type={message.type} message={message.message} setMessage={setMessage} />
                 <GameSaveButtons setMessage={setMessage}/>
+                <Alert type={message.type} message={message.message} setMessage={setMessage} />
                 <HeaderFields/>
             </main>
         </>
