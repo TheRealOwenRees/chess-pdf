@@ -12,6 +12,11 @@ export const contactSchema = z.object({
   message: z.string()
 })
 
+export const errorSchema = z.object({
+  timestamp: z.string(),
+  error: z.string(),
+})
+
 export const gameDetailsSchema = z.object({
   pgn: z.string(),
   diagrams: z.array(diagramObjectSchema)

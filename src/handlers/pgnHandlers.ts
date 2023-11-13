@@ -4,6 +4,8 @@ import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
 import { openPDFInNewTab } from "@/utils/pdfUtils";
 
+// TODO tidy this all up
+
 // TODO write tests for these handlers
 export const handleClearGame = (
   e: MouseEvent<HTMLButtonElement>,
@@ -59,7 +61,8 @@ export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
     setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
-    setMessage: Dispatch<SetStateAction<Message>>
+    setMessage: Dispatch<SetStateAction<Message>>,
+    errorContact: any
 ) => {
   e.preventDefault()
   setGeneratingPDF(true)
@@ -80,12 +83,16 @@ export const handleSavePDF = async (
       type: 'success',
       message: 'PDF generated successfully'
     })
-  } catch (error) {
+  } catch (error: any) {
     setMessage({
       type: 'error',
       message: 'Something went wrong generating the PDF'
     })
-    // TODO send error message to discord
+    const response = await errorContact.mutateAsync({
+      timestamp: new Date().toISOString(),
+      error: error.message
+    })
+    console.log(response)
   } finally {
     setGeneratingPDF(false)
     setTimeout(() => setMessage({
