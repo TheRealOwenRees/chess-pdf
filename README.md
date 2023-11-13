@@ -23,7 +23,7 @@ This website is built in Typescript using:
 
 ## Limitations
 The current limitations of this project include:
-- Does not currently render commends made before a move
+- Does not currently render comments made before a move
 - Does not render annotations of variations
 - Does not allow diagrams of variations
 
