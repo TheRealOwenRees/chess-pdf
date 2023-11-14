@@ -7,8 +7,7 @@ export const discordErrorLog =
     .mutation(async ({ input }) => {
       try {
         const { timestamp, error } = input
-        // TODO create new channels and webhook for error logging
-        await fetch(process.env.DISCORD_CONTACT_WEBHOOK as string, {
+        await fetch(process.env.DISCORD_ERROR_LOG_WEBHOOK as string, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
