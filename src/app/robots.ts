@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/"
     },
-    // TODO add sitemap
+    sitemap: "https://chess-pdf.vercel.app/sitemap.xml"
   }
 }
