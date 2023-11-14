@@ -1,7 +1,9 @@
-'use client'
+'use client' // TODO can we move this to the form/fields?
+
+import type { Metadata } from "next";
 
 import dynamic from "next/dynamic";
-import {useMemo, useRef, useState} from "react";
+import { useMemo, useRef, useState } from "react";
 
 import SectionLargeHeading from "@/app/components/SectionLargeHeading";
 import HeaderFields from "@/app/chessboard/HeaderFields";
@@ -15,14 +17,20 @@ import useBoardButtonClicks from "@/hooks/useBoardButtonClicks";
 import useMoveListClicks from "@/hooks/useMoveListClicks";
 import GameSaveButtons from "@/app/chessboard/GameSaveButtons";
 
+// TODO metadata not allowed inside a client component, which is why 'use client' needs moving
+// export const metadata: Metadata = {
+//     title: 'Chess PDF - Chessboard',
+//     description: 'Convert your PGN file to a PDF of your chess game'
+// }
+
 const GameBoard = dynamic(() => import("./Board"), {
     ssr: false,
     loading: LoadingBoard
 })
 
 const Chessboard = () => {
-    const {gameState, gameDispatch} = useGameContext()
-    const {diagrams, pgn} = gameState
+    const { gameState, gameDispatch } = useGameContext()
+    const { diagrams, pgn} = gameState
     const checkboxRef = useRef<HTMLInputElement>(null)
     const [message, setMessage] = useState({
         type: '',
@@ -32,6 +40,7 @@ const Chessboard = () => {
     useBoardButtonClicks(checkboxRef)
     useMoveListClicks(checkboxRef)
 
+    // TODO move into its own component
     const diagramCheckbox = () => {
         return (
             <div className="flex justify-start mt-4">
