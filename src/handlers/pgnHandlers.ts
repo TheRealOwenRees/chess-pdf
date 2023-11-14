@@ -16,6 +16,7 @@ export const handleClearGame = (
   gameDispatch({ type: 'CLEAR_GAME' })
 }
 
+// TODO write tests for these handlers
 export const handleLoadPGN = (
   e: ChangeEvent<HTMLInputElement>,
   gameDispatch: Dispatch<GameAction>) => {
@@ -51,12 +52,14 @@ export const handleLoadPGN = (
   }
 }
 
+// TODO write tests for these handlers
 export const handleSavePGN = (e: MouseEvent<HTMLButtonElement>, gameState: GameProps) => {
   e.preventDefault()
   const pgnString = buildPgnString(gameState)
   downloadString(pgnString, 'game.pgn')
 }
 
+// TODO write tests for these handlers
 export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
@@ -92,7 +95,6 @@ export const handleSavePDF = async (
       timestamp: new Date().toISOString(),
       error: error.message
     })
-    console.log(response)
   } finally {
     setGeneratingPDF(false)
     setTimeout(() => setMessage({

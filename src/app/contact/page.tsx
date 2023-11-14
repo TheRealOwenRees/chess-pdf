@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+
 import SectionLargeHeading from "@/app/components/SectionLargeHeading";
 import SectionDescription from "@/app/components/SectionDescription";
 import ContactForm from "@/app/contact/ContactForm";
+
+export const metadata: Metadata = {
+    title: 'Chess PDF - Contact Us',
+    description: 'Contact us with any questions or suggestions you have about this service',
+}
 
 const Contact = () => {
     return (
