@@ -4,7 +4,7 @@ import { ContactFormValues } from "@/types";
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import TextField from "@/app/contact/TextField";
+import TextField from "@/app/contact/components/TextField";
 import { handleContactSubmit } from "@/handlers/contactHandlers";
 import { trpc } from "@/utils/trpc";
 
