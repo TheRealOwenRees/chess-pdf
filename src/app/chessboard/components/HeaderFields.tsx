@@ -1,4 +1,4 @@
-import FormField from "@/app/chessboard/FormField";
+import FormField from "@/app/chessboard/components/FormField";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { FaPlus, FaMinus } from 'react-icons/fa'
 

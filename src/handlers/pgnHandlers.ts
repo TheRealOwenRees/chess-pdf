@@ -91,6 +91,7 @@ export const handleSavePDF = async (
       type: 'error',
       message: 'Something went wrong generating the PDF'
     })
+    // TODO use response?
     const response = await errorContact.mutateAsync({
       timestamp: new Date().toISOString(),
       error: error.message

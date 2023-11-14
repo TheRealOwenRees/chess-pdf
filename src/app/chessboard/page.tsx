@@ -6,16 +6,17 @@ import dynamic from "next/dynamic";
 import { useMemo, useRef, useState } from "react";
 
 import SectionLargeHeading from "@/app/components/SectionLargeHeading";
-import HeaderFields from "@/app/chessboard/HeaderFields";
-import GameLoadButtons from "@/app/chessboard/GameLoadButtons";
-import LoadingBoard from "@/app/chessboard/LoadingBoard";
+import HeaderFields from "@/app/chessboard/components/HeaderFields";
+import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
+import LoadingBoard from "@/app/chessboard/components/LoadingBoard";
 import Alert from "@/app/components/Alert";
+import DiagramCheckbox from "@/app/chessboard/components/DiagramCheckbox";
 
-import {useGameContext} from "@/context/GameContext";
-import {diagramCheckboxHandler} from "@/handlers/diagramCheckboxHandlers";
+import { useGameContext } from "@/context/GameContext";
+import { diagramCheckboxHandler } from "@/handlers/diagramCheckboxHandlers";
 import useBoardButtonClicks from "@/hooks/useBoardButtonClicks";
 import useMoveListClicks from "@/hooks/useMoveListClicks";
-import GameSaveButtons from "@/app/chessboard/GameSaveButtons";
+import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
 
 // TODO metadata not allowed inside a client component, which is why 'use client' needs moving
 // export const metadata: Metadata = {
@@ -23,7 +24,7 @@ import GameSaveButtons from "@/app/chessboard/GameSaveButtons";
 //     description: 'Convert your PGN file to a PDF of your chess game'
 // }
 
-const GameBoard = dynamic(() => import("./Board"), {
+const GameBoard = dynamic(() => import("./components/Board"), {
     ssr: false,
     loading: LoadingBoard
 })
@@ -41,23 +42,23 @@ const Chessboard = () => {
     useMoveListClicks(checkboxRef)
 
     // TODO move into its own component
-    const diagramCheckbox = () => {
-        return (
-            <div className="flex justify-start mt-4">
-                <label htmlFor="diagramCheckbox">Select Diagram</label>
-                <input type="checkbox"
-                       className="ml-2 accent-primary-200"
-                       id="diagramCheckbox"
-                       disabled
-                       ref={checkboxRef}
-                       onChange={() => diagramCheckboxHandler(
-                           gameState,
-                           gameDispatch,
-                           checkboxRef)}
-                />
-            </div>
-        )
-    }
+    // const diagramCheckbox = () => {
+    //     return (
+    //         <div className="flex justify-start mt-4">
+    //             <label htmlFor="diagramCheckbox">Select Diagram</label>
+    //             <input type="checkbox"
+    //                    className="ml-2 accent-primary-200"
+    //                    id="diagramCheckbox"
+    //                    disabled
+    //                    ref={checkboxRef}
+    //                    onChange={() => diagramCheckboxHandler(
+    //                        gameState,
+    //                        gameDispatch,
+    //                        checkboxRef)}
+    //             />
+    //         </div>
+    //     )
+    // }
 
     // memoized chessboard that only re-renders with gamePGN state change
     const chessBoardMemoized = useMemo(() => {
@@ -72,7 +73,7 @@ const Chessboard = () => {
                 <div className="flex justify-center">
                     {chessBoardMemoized}
                 </div>
-                {diagramCheckbox()}
+                <DiagramCheckbox checkboxRef={checkboxRef} gameState={gameState} gameDispatch={gameDispatch} />
                 <GameSaveButtons setMessage={setMessage}/>
                 <Alert type={message.type} message={message.message} setMessage={setMessage} />
                 <HeaderFields/>
