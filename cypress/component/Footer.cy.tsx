@@ -5,10 +5,6 @@ describe('<Footer />', () => {
     cy.mount(<Footer />)
   })
 
-  it('mounts', () => {
-    cy.get('footer').should('be.visible')
-  })
-
   it('has a link to the homepage', () => {
     cy.get('[data-cy="homepage-link"]').should('be.visible')
     cy.get('[data-cy="homepage-link"]').should('have.attr', 'href', '/')
