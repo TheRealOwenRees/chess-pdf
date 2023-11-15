@@ -91,3 +91,10 @@ export interface Message {
   type: string
   message: string
 }
+
+export type Action =
+  | { type: 'SET_GAME'; payload: { pgn: string; headers: Header } }
+  | { type: 'CLEAR_GAME' }
+  | { type: 'SET_HEADERS'; payload: Header }
+  | { type: 'ADD_DIAGRAM'; payload: DiagramProps }
+  | { type: 'DELETE_DIAGRAM'; payload: { ply: number } };
