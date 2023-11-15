@@ -30,7 +30,7 @@ export default function Home() {
     </main>
     <section className="grid md:grid-cols-3 gap-4 mt-8 text-center place-items-center md:text-left p-8 max-w-screen-lg mx-auto">
       <SectionSmallHeading className="md:col-span-3" text="FEATURES" />
-      <SectionLargeHeading className="md:col-span-3" text="A Unique Chess Publication" textAccent="Service" />
+      <SectionLargeHeading className="md:col-span-3" text="A Unique Chess Publication " textAccent="Service" />
       <SectionDescription className="md:col-span-3" text="Convert your chess PGN files into a publishable PDF, complete with diagrams of chosen positions." />
       <Feature title="Fast" text="Quick PDF generation using a custom TeX Live server." />
       <Feature title="Easy" text="Upload a PGN of your game, and choose the diagrams you want in your PDF. Annotations are added automatically." />
@@ -38,7 +38,7 @@ export default function Home() {
     </section>
     <section className="grid md:grid-cols-2 mt-8 items-center text-center place-items-center md:text-left p-8">
       <SectionSmallHeading className="col-span-2" text="FAQs" />
-      <SectionLargeHeading className="col-span-2" text="Your Questions" textAccent="Answered" />
+      <SectionLargeHeading className="col-span-2" text="Your Questions " textAccent="Answered" />
       <SectionDescription className="col-span-2" text="Below we answer some of the most common questions we get regarding this service." />
       <FAQAccordion className="col-span-2 w-3/4 max-w-lg text-left" />
     </section>
