@@ -1,4 +1,4 @@
-import { DiagramProps, GameProps, Header } from "@/types";
+import { Action, DiagramProps, GameProps, Header } from "@/types";
 import { defaultHeaderFields } from "@/utils/pgnUtils";
 
 export const initialGameState = {
@@ -7,8 +7,7 @@ export const initialGameState = {
   diagrams: [] as DiagramProps[]
 }
 
-// TODO fix any
-export const gameReducer = (state: GameProps, action: any) => {
+export const gameReducer = (state: GameProps, action: Action) => {
   switch (action.type) {
     case 'SET_GAME':
       return {

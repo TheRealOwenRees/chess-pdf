@@ -15,7 +15,6 @@ import useBoardButtonClicks from "@/hooks/useBoardButtonClicks";
 import useMoveListClicks from "@/hooks/useMoveListClicks";
 import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
 
-// TODO does this need to be dynamic?
 const GameBoard = dynamic(() => import("./components/Board"), {
     ssr: false,
     loading: LoadingBoard
@@ -36,7 +35,7 @@ const ChessboardLayout = () => {
     // memoized chessboard that only re-renders with gamePGN state change
     const chessBoardMemoized = useMemo(() => {
         return <GameBoard diagrams={diagrams}>{pgn}</GameBoard>
-    }, [pgn])
+    }, [pgn]) // TODO fix dependency array
 
     return (
         <>
