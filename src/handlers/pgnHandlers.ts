@@ -81,23 +81,24 @@ export const handleSavePDF = async (
     },
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams })
   })
-    openPDFInNewTab(await response.blob())
+    openPDFInNewTab(await response.blob())  // TODO add reponse here? Make sure it opened before setting message
     setMessage({
       type: 'success',
       message: 'PDF generated successfully'
     })
   } catch (error: any) {
-    setMessage({
-      type: 'error',
-      message: 'Something went wrong generating the PDF'
-    })
-    // TODO use response?
     // TODO format time
     // TODO send full error message
     const response = await errorContact.mutateAsync({
       timestamp: new Date().toISOString(),
       error: error.message
     })
+    if (response) {
+      setMessage({
+        type: 'error',
+        message: 'Something went wrong generating the PDF'
+      })
+    }
   } finally {
     setGeneratingPDF(false)
     setTimeout(() => setMessage({

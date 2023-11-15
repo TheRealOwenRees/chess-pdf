@@ -1,32 +1,39 @@
-import {Message} from '@/types'
-import {Dispatch, SetStateAction} from "react";
+'use client'
 
-const Alert = ({type, message, setMessage} : {
+import { Message } from '@/types'
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { handleClearMessage } from "@/handlers/messageHandlers";
+import useAlertColours from "@/hooks/useAlertColours";
+
+const Alert = ({ type, message, setMessage } : {
     type: string
     message: string,
     setMessage: Dispatch<SetStateAction<Message>>
 }) => {
 
-    const handleClearMessage = () => {
-    setMessage({
-        type: '',
-        message: ''
-        })
-    }
+  const { alertDiv, alertSvg, setAlertColour } = useAlertColours()
 
-    const colour = type === 'success' ? 'green' : 'red'
+  useEffect(() => {
+    if (type === 'success') {
+      setAlertColour('green')
+    } else if (type === 'error') {
+      setAlertColour('red')
+    } else {
+      setAlertColour('red')
+    }
+  }, [type, setAlertColour]);
 
     return (
       type && message &&
-        <div className={`mt-4 bg-${colour}-100 border border-${colour}-400 text-${colour}-700 px-4 py-3 rounded relative`}
+        <div className={alertDiv}
              role="alert"
              data-cy="alert-div"
         >
             <strong data-cy="type" className="font-bold capitalize">{`${type}! `}</strong>
             <span data-cy="message" className="block sm:inline">{message}</span>
             <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-          <svg data-cy="close-button" className={`fill-${colour}-500 h-6 w-6 text-${colour}-500`}
-               onClick={handleClearMessage}
+          <svg data-cy="close-button" className={alertSvg}
+               onClick={() => handleClearMessage(setMessage)}
                role="button" xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 20 20">
             <title>Close</title>
