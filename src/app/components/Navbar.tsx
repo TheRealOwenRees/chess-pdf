@@ -10,7 +10,7 @@ const Navbar = () => {
       <nav className="bg-white p-8 w-full max-w-screen-2xl place-self-center text-secondary-500">
        <div className="container flex items-center justify-between mx-auto">
          <div className="flex items-center">
-           <Link href="/">
+           <Link href="/" data-cy="homepage-link">
              <Image src={logo} alt="Chess PDF Logo" width={50} height={50} className="mr-4" />
            </Link>
            <Link href="/">
@@ -21,10 +21,10 @@ const Navbar = () => {
          <div>
            <ul className="flex flex-1 items-center gap-14 font-semibold">
              <li>
-               <Link className={navItemHover} href="/chessboard">Chessboard</Link>
+               <Link className={navItemHover} href="/chessboard" data-cy="chessboard-link">Chessboard</Link>
              </li>
              <li>
-               <Link className={navItemHover} href="/contact">Contact</Link>
+               <Link className={navItemHover} href="/contact" data-cy="contact-link">Contact</Link>
              </li>
            </ul>
          </div>
