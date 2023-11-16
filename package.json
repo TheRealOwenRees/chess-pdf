@@ -9,6 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "cy:open": "cypress open",
+    "cy:e2e": "cypress run",
     "cy:component": "cypress run --component"
   },
   "dependencies": {
