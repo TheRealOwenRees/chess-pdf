@@ -1,16 +1,21 @@
+// @ts-ignore
 declare global {
   namespace Cypress {
     interface Chainable {
+      // @ts-ignore
       getBySel(selector: string): Chainable<Element>,
+      // @ts-ignore
       getBySelLike(selector: string): Chainable<Element>
     }
   }
 }
 
+// @ts-ignore
 Cypress.Commands.add('getBySel', (selector) => {
   return cy.get(`[data-test=${selector}]`)
 })
 
+// @ts-ignore
 Cypress.Commands.add('getBySelLike', (selector)=> {
   return cy.get(`[data-test*=${selector}]`)
 })
