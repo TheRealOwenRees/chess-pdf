@@ -14,16 +14,16 @@ const FAQAccordion = ({ className } : { className: string }) => {
     <Accordion
       className={className}
       itemClasses={itemClasses}
-      data-cy="accordion"
+      data-test="accordion"
     >
       <AccordionItem
         key="1"
         aria-label="Is this service free?"
         title="Is this service free?"
         indicator={({ isOpen }) => (isOpen ? <FaMinus /> : <FaPlus />)}
-        data-cy="accordion-item"
+        data-test="accordion-item"
       >
-        <p data-cy="accordion-text">Yes. There are no current plans to charge for this service. If in the future there is a payment plan, it will come with a generous free tier.</p>
+        <p data-test="accordion-text">Yes. There are no current plans to charge for this service. If in the future there is a payment plan, it will come with a generous free tier.</p>
       </AccordionItem>
       <AccordionItem
         key="2"

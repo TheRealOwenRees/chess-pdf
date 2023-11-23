@@ -22,7 +22,7 @@ const Board = (props: BoardProps) => {
     })
   })
 
-  return <div id={id} data-cy="board"></div>
+  return <div id={id} data-test="board"></div>
 }
 
 export default Board

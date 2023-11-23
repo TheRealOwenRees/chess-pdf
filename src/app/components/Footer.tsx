@@ -8,11 +8,11 @@ const Footer = () => {
 
     return (
       <footer className="grid md:grid-cols-3 gap-4 items-center bg-primary-500 text-white text-center p-5">
-        <div className="text-2xl font-bold"><Link href="/" data-cy="homepage-link">Chess PDF</Link></div>
-        <div data-cy="copyright">&copy; 2023 Chess PDF</div>
+        <div className="text-2xl font-bold"><Link href="/" data-test="homepage-link">Chess PDF</Link></div>
+        <div data-test="copyright">&copy; 2023 Chess PDF</div>
         <div className="flex justify-center gap-3 text-xl">
-          <Link href={githubURL} target="_blank" data-cy="github-link"><LuGithub /></Link>
-          <Link href="/contact" data-cy="contact-link"><LuMail /></Link>
+          <Link href={githubURL} target="_blank" data-test="github-link"><LuGithub /></Link>
+          <Link href="/contact" data-test="contact-link"><LuMail /></Link>
         </div>
       </footer>
     )

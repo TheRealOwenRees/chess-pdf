@@ -1,26 +1,20 @@
-// @ts-ignore
+// <reference types="cypress" />
+
+Cypress.Commands.add('getBySel', (selector) => cy.get(`[data-test=${selector}]`))
+Cypress.Commands.add('getBySelLike', (selector)=> cy.get(`[data-test*=${selector}]`))
+
+export {}
+
 declare global {
   namespace Cypress {
     interface Chainable {
-      // @ts-ignore
-      getBySel(selector: string): Chainable<Element>,
-      // @ts-ignore
-      getBySelLike(selector: string): Chainable<Element>
+      getBySel(selector: string): Chainable,
+      getBySelLike(selector: string): Chainable
     }
   }
 }
 
-// @ts-ignore
-Cypress.Commands.add('getBySel', (selector) => {
-  return cy.get(`[data-test=${selector}]`)
-})
-
-// @ts-ignore
-Cypress.Commands.add('getBySelLike', (selector)=> {
-  return cy.get(`[data-test*=${selector}]`)
-})
-
-/// <reference types="cypress" />
+// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
