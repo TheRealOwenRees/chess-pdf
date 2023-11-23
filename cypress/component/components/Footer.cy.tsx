@@ -6,22 +6,22 @@ describe('<Footer />', () => {
   })
 
   it('has a link to the homepage', () => {
-    cy.get('[data-cy="homepage-link"]').should('be.visible')
-    cy.get('[data-cy="homepage-link"]').should('have.attr', 'href', '/')
+    cy.getBySel('homepage-link').should('be.visible')
+    cy.getBySel('homepage-link').should('have.attr', 'href', '/')
   })
 
   it('has a link to the github repo', () => {
-    cy.get('[data-cy="github-link"]').should('be.visible')
-    cy.get('[data-cy="github-link"]').should('have.attr', 'href', Cypress.env('GITHUB_URL'))
+    cy.getBySel('github-link').should('be.visible')
+    cy.getBySel('github-link').should('have.attr', 'href', Cypress.env('GITHUB_URL'))
   })
 
   it('has a link to the contact page', () => {
-    cy.get('[data-cy="contact-link"]').should('be.visible')
-    cy.get('[data-cy="contact-link"]').should('have.attr', 'href', '/contact')
+    cy.getBySel('contact-link').should('be.visible')
+    cy.getBySel('contact-link').should('have.attr', 'href', '/contact')
   })
 
   it('has a copyright notice with the current year', () => {
-    cy.get('[data-cy="copyright"]').should('be.visible')
-    cy.get('[data-cy="copyright"]').should('contain', new Date().getFullYear())
+    cy.getBySel('copyright').should('be.visible')
+    cy.getBySel('copyright').should('contain', new Date().getFullYear())
   })
 })

@@ -13,13 +13,13 @@ describe('<Alert />', () => {
     })
 
     it('Success Text and Class', () => {
-      cy.get('[data-cy="type"]').should('have.text', 'success! ')
-      cy.get('[data-cy="message"]').should('have.text', 'Test Message')
-      cy.get('[data-cy="alert-div"]').should('have.class', 'border-green-400')
+      cy.getBySel('type').should('have.text', 'success! ')
+      cy.getBySel('message').should('have.text', 'Test Message')
+      cy.getBySel('alert-div').should('have.class', 'border-green-400')
     })
 
     it('Close Button', () => {
-      cy.get('[data-cy="close-button"]').click()
+      cy.getBySel('close-button').click()
       cy.wrap(setMessageSpy).should('be.calledWith', {type: '', message: ''})
     })
   })
@@ -32,13 +32,13 @@ describe('<Alert />', () => {
     })
 
     it ('Error Text and Class', () => {
-      cy.get('[data-cy="type"]').should('have.text', 'error! ')
-      cy.get('[data-cy="message"]').should('have.text', 'Test Message')
-      cy.get('[data-cy="alert-div"]').should('have.class', 'border-red-400')
+      cy.getBySel('type').should('have.text', 'error! ')
+      cy.getBySel('message').should('have.text', 'Test Message')
+      cy.getBySel('alert-div').should('have.class', 'border-red-400')
     })
 
     it('Close Button', () => {
-      cy.get('[data-cy="close-button"]').click()
+      cy.getBySel('close-button').click()
       cy.wrap(setMessageSpy).should('be.calledWith', {type: '', message: ''})
     })
   })

@@ -2,12 +2,12 @@ import { SectionHeadingProps } from "@/types";
 
 const SectionLargeHeading = (props: SectionHeadingProps) => {
   return (
-    <div data-cy="heading-div"
+    <div data-test="heading-div"
          className={`${props.className} text-4xl md:text-5xl text-center text-secondary-600 font-extrabold`}
     >
-      <h4 data-cy="text">{props.text}
+      <h4 data-test="text">{props.text}
         <span className="text-primary-500"
-              data-cy="accent">{props.textAccent}
+              data-test="accent">{props.textAccent}
         </span>
       </h4>
     </div>

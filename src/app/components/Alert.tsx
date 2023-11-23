@@ -27,12 +27,12 @@ const Alert = ({ type, message, setMessage } : {
       type && message &&
         <div className={alertDiv}
              role="alert"
-             data-cy="alert-div"
+             data-test="alert-div"
         >
-            <strong data-cy="type" className="font-bold capitalize">{`${type}! `}</strong>
-            <span data-cy="message" className="block sm:inline">{message}</span>
+            <strong data-test="type" className="font-bold capitalize">{`${type}! `}</strong>
+            <span data-test="message" className="block sm:inline">{message}</span>
             <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-          <svg data-cy="close-button" className={alertSvg}
+          <svg data-test="close-button" className={alertSvg}
                onClick={() => handleClearMessage(setMessage)}
                role="button" xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 20 20">
