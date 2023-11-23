@@ -1,3 +1,20 @@
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      getBySel(selector: string): Chainable<Element>,
+      getBySelLike(selector: string): Chainable<Element>
+    }
+  }
+}
+
+Cypress.Commands.add('getBySel', (selector) => {
+  return cy.get(`[data-test=${selector}]`)
+})
+
+Cypress.Commands.add('getBySelLike', (selector)=> {
+  return cy.get(`[data-test*=${selector}]`)
+})
+
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
