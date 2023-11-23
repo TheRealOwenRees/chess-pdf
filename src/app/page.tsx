@@ -25,7 +25,7 @@ export default function Home() {
       </div>
       <div className="example-pdfs">
         <Image src={examplePDF2} alt="chess pdf" />
-        <Image src={examplePDF1} alt="chess pdf" />
+        <Image src={examplePDF1} alt="chess pdf" priority />
       </div>
     </main>
     <section className="grid md:grid-cols-3 gap-4 mt-8 text-center place-items-center md:text-left p-8 max-w-screen-lg mx-auto">
