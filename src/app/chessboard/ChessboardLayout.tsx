@@ -40,7 +40,7 @@ const ChessboardLayout = () => {
     return (
         <>
             <main className="grid max-w-screen-2xl items-center px-8">
-                <SectionLargeHeading text="Convert PGN to" textAccent="PDF"/>
+                <SectionLargeHeading text="Convert PGN to " textAccent="PDF"/>
                 <GameLoadButtons/>
                 <div className="flex justify-center">
                     {chessBoardMemoized}

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test": "npm run test:jest && npm run cy:component && npm run cy:e2e",
+    "test:jest": "jest",
     "cy:open": "cypress open",
     "cy:e2e": "cypress run",
     "cy:component": "cypress run --component"
