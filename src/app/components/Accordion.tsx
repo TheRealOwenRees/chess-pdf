@@ -6,7 +6,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa'
 const FAQAccordion = ({ className } : { className: string }) => {
   const itemClasses = {
     base: "py-2",
-    title: "font-bold text-lg text-gray-700",
+    title: "font-bold text-lg text-gray-700 text-left",
     content: "text-gray-700 text-md",
   }
 
