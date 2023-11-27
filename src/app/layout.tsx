@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { ReactNode } from "react";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -32,6 +33,7 @@ export default function RootLayout({
             <div className="relative min-h-[calc(100vh-114px-76px)] bg-white place-self-center">{children}</div>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </Providers>
     </html>
