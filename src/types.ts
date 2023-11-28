@@ -25,8 +25,7 @@ export interface GameProps {
 
 export interface BoardProps {
   children: string | undefined
-  diagrams: DiagramProps[]
-  screenWidth?: number
+  diagrams?: DiagramProps[]
 }
 
 export interface SectionHeadingProps {
