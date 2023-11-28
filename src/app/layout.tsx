@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '@/scss/index.scss'
 
 import Navbar from '@/app/components/Navbar'
 import Footer from "@/app/components/Footer";

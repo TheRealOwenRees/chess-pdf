@@ -26,4 +26,4 @@ const useBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>) => {
   });
 }
 
-export default useBoardButtonClicks;
+export default useBoardButtonClicks
