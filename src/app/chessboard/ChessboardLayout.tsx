@@ -2,29 +2,29 @@
 
 import { useRef, useState } from "react";
 
+import Lpv from "@/app/chessboard/components/Lpv";
 import SectionLargeHeading from "@/app/components/SectionLargeHeading";
 import HeaderFields from "@/app/chessboard/components/HeaderFields";
 import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
+import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
 import Alert from "@/app/components/Alert";
 import DiagramCheckbox from "@/app/chessboard/components/DiagramCheckbox";
 
 import { useGameContext } from "@/context/GameContext";
 import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
-import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
-
-import Lpv from "@/app/chessboard/components/Lpv";
+import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
 
 const ChessboardLayout = () => {
     const { gameState, gameDispatch } = useGameContext()
-    const { diagrams, pgn} = gameState
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
+    const lpvRef = useRef() // TODO move to atom?
     const [message, setMessage] = useState({
         type: '',
         message: ''
     })
-    const lpvRef = useRef() // TODO move to atom?
 
     useLpvBoardButtonClicks(checkboxRef, lpvRef)
+    useLpvMoveListClicks(checkboxRef)
 
     return (
         <>
