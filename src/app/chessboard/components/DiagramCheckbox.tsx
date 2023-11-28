@@ -2,12 +2,13 @@
 
 import { GameProps } from "@/types";
 import { MutableRefObject } from "react";
-import { diagramCheckboxHandler } from "@/handlers/diagramCheckboxHandlers";
+import { lpvDiagramCheckboxHandler } from "@/handlers/diagramCheckboxHandlers";
 
-const DiagramCheckbox = ({ checkboxRef, gameState, gameDispatch }: {
+const DiagramCheckbox = ({ checkboxRef, gameState, gameDispatch, lpvRef }: {
   checkboxRef: MutableRefObject<HTMLInputElement | null>,
   gameState: GameProps,
-  gameDispatch: any
+  gameDispatch: any,
+  lpvRef: MutableRefObject<any>
 }) => {
 
   return (
@@ -18,10 +19,11 @@ const DiagramCheckbox = ({ checkboxRef, gameState, gameDispatch }: {
              id="diagramCheckbox"
              disabled
              ref={checkboxRef}
-             onChange={() => diagramCheckboxHandler(
+             onChange={() => lpvDiagramCheckboxHandler(
                gameState,
                gameDispatch,
-               checkboxRef)}
+               checkboxRef,
+               lpvRef)}
       />
     </div>
   );

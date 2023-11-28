@@ -1,25 +1,37 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import LichessPgnViewer from "lichess-pgn-viewer";
 import { useGameContext } from "@/context/GameContext";
+import PgnViewer from "lichess-pgn-viewer/pgnViewer";
 
-const Lpv = () => {
-  const { gameState } = useGameContext()
-  let { pgn } = gameState
-  const id = "lpv-board"
+const Lpv = forwardRef((props, ref) => {
+  const { gameState } = useGameContext();
+  let { pgn } = gameState;
+  const id = "lpv-board";
+  const viewer = useRef<PgnViewer | null>(null);
 
   useEffect(() => {
-    const element: HTMLElement | null = document.querySelector('.lpv-board')
+    const element: HTMLElement | null = document.querySelector('.lpv-board');
 
-    if (!element) return
+    if (!element) return;
 
-    LichessPgnViewer(element, {
+    viewer.current = LichessPgnViewer(element, {
       pgn: pgn,
-    })
+      scrollToMove: false,
+    });
+
   }, [pgn]);
 
-  return (
-      <div className={id} data-test="lpv-board"></div>
-    )
-}
+  // Forward the ref to the parent component
+  useImperativeHandle(ref, () => ({
+    curData: () => {
+      if (!viewer.current) return null;
+      return viewer.current.curData();
+    },
+  }), []);
 
-export default Lpv
+  return (
+    <div className={id} data-test="lpv-board"></div>
+  );
+});
+
+export default Lpv;
