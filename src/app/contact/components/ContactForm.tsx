@@ -1,12 +1,15 @@
 "use client";
 
 import { ContactFormValues } from "@/types";
+import { trpc } from "@/utils/trpc";
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+
 import TextField from "@/app/contact/components/TextField";
+import AlertSuccess from "@/app/components/AlertSuccess";
+
 import { handleContactSubmit } from "@/handlers/contactHandlers";
-import { trpc } from "@/utils/trpc";
 
 const ContactForm = () => {
   const [messageStatus, setMessageStatus] = useState({
@@ -93,14 +96,7 @@ const ContactForm = () => {
         <span className={loadingSpinner}></span>
       </button>
 
-      {
-        <span
-          role="alert"
-          className="text-success"
-        >
-        {messageStatus.message}
-      </span>
-      }
+      {messageStatus.isSuccess && <AlertSuccess message={messageStatus.message} />}
     </form>
   );
 };

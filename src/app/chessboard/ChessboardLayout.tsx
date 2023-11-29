@@ -15,6 +15,7 @@ import Alert from "@/app/components/Alert";
 
 import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
 import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
+import AlertError from "@/app/components/AlertError";
 
 const ChessboardLayout = () => {
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom

@@ -7,7 +7,7 @@ const Navbar = () => {
   const navItemHover = "decoration-2 underline-offset-8 hover:text-primary-500 hover:underline"
 
     return (
-      <nav className="bg-white p-8 w-full max-w-screen-2xl place-self-center text-secondary-500">
+      <nav className="bg-base-100 p-8 w-full max-w-screen-2xl place-self-center text-secondary-500">
        <div className="container flex items-center justify-between mx-auto">
          <div className="flex items-center">
            <Link href="/" data-test="homepage-nav-logo-link">
