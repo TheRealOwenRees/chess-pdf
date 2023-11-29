@@ -9,7 +9,7 @@ import { openPDFInNewTab } from "@/utils/pdfUtils";
 // TODO write tests for these handlers
 export const handleClearGame = (
   e: MouseEvent<HTMLButtonElement>,
-  gameDispatch: Dispatch<GameAction>) => {
+  gameDispatch: any) => { // TODO fix any type
   e.preventDefault()
   const fileInput = document.getElementById('fileInput') as HTMLInputElement
   fileInput.value = ''
@@ -19,7 +19,7 @@ export const handleClearGame = (
 // TODO write tests for these handlers
 export const handleLoadPGN = (
   e: ChangeEvent<HTMLInputElement>,
-  gameDispatch: Dispatch<GameAction>) => {
+  gameDispatch: any) => { // TODO fix any type
   e.preventDefault()
   const selectedFile = e.target.files && e.target.files[0]
 

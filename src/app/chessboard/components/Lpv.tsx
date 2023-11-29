@@ -1,10 +1,13 @@
+import { useAtom } from "jotai/index";
+import { gameAtom } from "@/atoms";
+
 import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+
 import LichessPgnViewer from "lichess-pgn-viewer";
-import { useGameContext } from "@/context/GameContext";
 import PgnViewer from "lichess-pgn-viewer/pgnViewer";
 
 const Lpv = forwardRef((props, ref) => {
-  const { gameState } = useGameContext();
+  const [gameState] = useAtom(gameAtom)
   let { pgn } = gameState;
   const id = "lpv-board";
   const viewer = useRef<PgnViewer | null>(null);
@@ -33,5 +36,7 @@ const Lpv = forwardRef((props, ref) => {
     <div className={id} data-test="lpv-board"></div>
   );
 });
+
+Lpv.displayName = "Lpv Ref";
 
 export default Lpv;

@@ -14,8 +14,11 @@ import { useGameContext } from "@/context/GameContext";
 import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
 import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
 
+import { useAtom } from "jotai";
+import { gameAtom } from "@/atoms";
+
 const ChessboardLayout = () => {
-    const { gameState, gameDispatch } = useGameContext()
+    // const { gameState, gameDispatch } = useGameContext()
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
     const lpvRef = useRef() // TODO move to atom?
     const [message, setMessage] = useState({
@@ -25,6 +28,9 @@ const ChessboardLayout = () => {
 
     useLpvBoardButtonClicks(checkboxRef, lpvRef)
     useLpvMoveListClicks(checkboxRef)
+
+    const [gameState, gameDispatch] = useAtom(gameAtom)
+    console.log(gameState)
 
     return (
         <>
