@@ -1,12 +1,13 @@
+import { useAtom } from "jotai/index";
+import { gameAtom } from "@/atoms";
 import { RefObject, useEffect } from "react";
-import { useGameContext } from "@/context/GameContext";
 import { lpvDiagramCheckboxCheckedHandler, lpvDiagramCheckboxDisabledHandler } from "@/handlers/diagramCheckboxHandlers";
 
 // TODO write tests for this hook
 // TODO combine with useBoardButtonClicks
 export const useLpvMoveListClicks = (checkboxRef: RefObject<HTMLInputElement>) => {
-  const { gameState } = useGameContext()
-  const { diagrams, pgn } = gameState
+  const [gameState] = useAtom(gameAtom)
+  const { diagrams } = gameState
 
   useEffect(() => {
     const movesList = document.querySelector(".lpv__moves")

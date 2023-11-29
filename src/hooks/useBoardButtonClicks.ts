@@ -1,11 +1,12 @@
+import { useAtom } from "jotai/index";
+import { gameAtom } from "@/atoms";
 import { RefObject, useEffect } from "react";
 import {
   lpvDiagramCheckboxDisabledHandler, lpvDiagramCheckboxCheckedHandler
 } from "@/handlers/diagramCheckboxHandlers";
-import { useGameContext } from "@/context/GameContext";
 
 export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>, lpvRef: RefObject<any>) => { // TODO fix any
-  const { gameState, gameDispatch } = useGameContext()
+  const [gameState] = useAtom(gameAtom)
   const { diagrams } = gameState
 
   useEffect(() => {
@@ -13,10 +14,10 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
 
     if (!boardButtons) return
 
+    // TODO can this me made more efficient? Merge with MoveClicks?
     boardButtons?.addEventListener('click', () => {
       let moves = [...document.querySelectorAll('move')].filter(m => m.parentNode?.querySelector('variation') && m.className !== 'empty')
       let ply = moves.findIndex(m => m.classList.contains('current')) + 1
-      let fen = lpvRef.current?.curData().fen
       lpvDiagramCheckboxDisabledHandler(checkboxRef, ply)
       lpvDiagramCheckboxCheckedHandler(diagrams, checkboxRef, ply)
     })

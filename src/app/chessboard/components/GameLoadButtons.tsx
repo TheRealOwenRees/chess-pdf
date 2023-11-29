@@ -1,8 +1,11 @@
+import { useAtom } from "jotai/index";
+import { gameAtom } from "@/atoms";
+
 import { handleClearGame, handleLoadPGN } from "@/handlers/pgnHandlers";
-import { useGameContext } from "@/context/GameContext";
 
 const GameLoadButtons = () => {
-  const { gameDispatch } = useGameContext()
+  const [_, gameDispatch] = useAtom(gameAtom)
+
   return (
     <div className="flex w-full justify-between mt-8 mb-4 gap-4 items-start">
       <label htmlFor="fileInput"

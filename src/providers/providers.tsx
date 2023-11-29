@@ -1,15 +1,15 @@
 'use client'
 
 import { ReactNode } from "react";
+import { Provider } from "jotai"
 import { TrpcProvider } from "@/providers/trpcProvider";
-import { GameProvider } from "@/context/GameContext";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <GameProvider>
+    <Provider>
       <TrpcProvider>
         {children}
       </TrpcProvider>
-    </GameProvider>
+    </Provider>
   )
 }
