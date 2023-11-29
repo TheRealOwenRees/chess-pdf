@@ -23,6 +23,8 @@ const ContactForm = () => {
   } = useForm<ContactFormValues>();
 
   const submitButtonText = messageStatus.isSending ? "Sending..." : "Send";
+  const loadingSpinner = messageStatus.isSending ? "loading loading-spinner" : "";
+
   const contact = trpc.discordContact.useMutation();
 
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
@@ -65,31 +67,36 @@ const ContactForm = () => {
         register={register}
       />
 
-      <label className="block capitalize text-sm font-medium text-gray-900">Message*</label>
-      <textarea
-        placeholder="Your message here..."
-        className="block p-2.5 border border-gray-500 text-gray-900 text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 shadow-sm placeholder-gray-500"
-        {...register("message", { required: "A message is required" })}
-        aria-invalid={errors.message ? "true" : "false"}
-      />
-      {
+      <label className="form-control">
+        <div className="label">
+          <span className="label-text">Message*</span>
+        </div>
+        <textarea
+          placeholder="Your message here..."
+          className="textarea textarea-bordered h-24 w-full focus:textarea-primary"
+          {...register("message", { required: "A message is required" })}
+          aria-invalid={errors.message ? "true" : "false"}
+          />
+        {
         errors.message &&
-        <span role="alert" className="text-red-700">
+        <span role="alert" className="text-error">
           {errors.message.message}
         </span>
       }
+      </label>
 
-      <input
+      <button
         type="submit"
-        value={submitButtonText}
         disabled={messageStatus.isSending}
-        className="max-w-sm disabled:bg-gray-500 w-3/4 place-self-center disabled:pointer-events-none rounded-3xl px-3 py-2 bg-primary-500 text-white text-center text-xl font-bold hover:bg-white hover:text-primary-500 hover:border-primary-500 border-2 transition duration-300 cursor-pointer"
-      />
+        className="btn btn-outline btn-primary">
+        {submitButtonText}
+        <span className={loadingSpinner}></span>
+      </button>
 
       {
         <span
           role="alert"
-          className="text-green-600 font-semibold"
+          className="text-success"
         >
         {messageStatus.message}
       </span>

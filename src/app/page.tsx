@@ -15,7 +15,7 @@ import '@/scss/index.scss'
 export default function Home() {
   return (
   <>
-    <main className="grid md:grid-cols-2 max-w-screen-2xl gap-8 items-center text-center md:text-left p-8">
+    <main className="">
       <div>
         <h1 className="text-3xl md:text-4xl font-bold text-black">Convert your Chess PGN</h1>
         <h1 className="text-3xl md:text-4xl font-bold text-black">into a <span className="text-primary-500">Publishable PDF.</span></h1>
