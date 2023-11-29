@@ -23,13 +23,13 @@ export default function RootLayout({
   children: ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
     <head>
       <link rel="icon" href="/favicon.svg" sizes="any"/>
     </head>
     <Providers>
       <body className={inter.className}>
-        <div className="bg-white text-gray-900 grid">
+        <div className="bg-base-100 text-gray-900 grid">
           <Navbar />
             <div className="relative min-h-[calc(100vh-114px-76px)] bg-white place-self-center">{children}</div>
           <Footer />
