@@ -4,17 +4,17 @@ import Image from "next/image";
 import logo from "@/img/logo.svg";
 
 const Navbar = () => {
-  const navItemHover = "decoration-2 underline-offset-8 hover:text-primary-500 hover:underline"
+  const navItemHover = "decoration-2 underline-offset-8 hover:text-primary hover:underline"
 
     return (
-      <nav className="bg-base-100 p-8 w-full max-w-screen-2xl place-self-center text-secondary-500">
+      <nav className="bg-base-100 p-8 w-full max-w-screen-2xl place-self-center text-base-content">
        <div className="container flex items-center justify-between mx-auto">
          <div className="flex items-center">
            <Link href="/" data-test="homepage-nav-logo-link">
              <Image src={logo} alt="Chess PDF Logo" width={50} height={50} className="mr-4" />
            </Link>
            <Link href="/" data-test="homepage-nav-link">
-             <span className="text-2xl font-extrabold text-primary-300 hidden sm:block">Chess PDF</span>
+             <span className="text-2xl font-extrabold text-primary hidden sm:block">Chess PDF</span>
            </Link>
          </div>
 

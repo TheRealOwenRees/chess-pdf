@@ -15,12 +15,12 @@ import '@/scss/index.scss'
 export default function Home() {
   return (
   <>
-    <main className="">
+    <main className="grid md:grid-cols-2 max-w-screen-2xl gap-8 items-center text-center md:text-left p-8">
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-black">Convert your Chess PGN</h1>
-        <h1 className="text-3xl md:text-4xl font-bold text-black">into a <span className="text-primary-500">Publishable PDF.</span></h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-base-content">Convert your Chess PGN</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-base-content">into a <span className="text-primary">Publishable PDF.</span></h1>
         <h2 className="mt-4 mb-8 text-gray-800">Upload and convert your games into a book format, along with variations and annotations.</h2>
-        <Link className="rounded-3xl px-8 py-4 bg-primary-500 text-white text-center text-xl font-bold hover:bg-white hover:text-primary-500 hover:border-primary-500 border-2 transition duration-300"
+        <Link className="btn btn-primary btn-lg btn-wide font-bold text-xl rounded-3xl"
               href="/chessboard">Get Started</Link>
       </div>
       <div className="example-pdfs">
@@ -40,7 +40,7 @@ export default function Home() {
       <SectionSmallHeading className="col-span-2" text="FAQs" />
       <SectionLargeHeading className="col-span-2" text="Your Questions " textAccent="Answered" />
       <SectionDescription className="col-span-2" text="Below we answer some of the most common questions we get regarding this service." />
-      <FAQAccordion className="col-span-2 w-3/4 max-w-lg text-left" />
+      <FAQAccordion />
     </section>
   </>
   )

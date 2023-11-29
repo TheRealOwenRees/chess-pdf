@@ -1,6 +1,6 @@
 import { FormFieldProps } from "@/types";
 
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import { gameAtom } from "@/atoms";
 
 import { handleInputChange } from "@/handlers/contactHandlers";
