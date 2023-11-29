@@ -1,24 +1,22 @@
 'use client'
 
-import { useRef, useState } from "react";
-
-import Lpv from "@/app/chessboard/components/Lpv";
-import SectionLargeHeading from "@/app/components/SectionLargeHeading";
-import HeaderFields from "@/app/chessboard/components/HeaderFields";
-import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
-import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
-import Alert from "@/app/components/Alert";
-import DiagramCheckbox from "@/app/chessboard/components/DiagramCheckbox";
-
-import { useGameContext } from "@/context/GameContext";
-import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
-import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
-
 import { useAtom } from "jotai";
 import { gameAtom } from "@/atoms";
 
+import { useRef, useState } from "react";
+
+import Lpv from "@/app/chessboard/components/Lpv";
+import HeaderFields from "@/app/chessboard/components/HeaderFields";
+import DiagramCheckbox from "@/app/chessboard/components/DiagramCheckbox";
+import SectionLargeHeading from "@/app/components/SectionLargeHeading";
+import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
+import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
+import Alert from "@/app/components/Alert";
+
+import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
+import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
+
 const ChessboardLayout = () => {
-    // const { gameState, gameDispatch } = useGameContext()
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
     const lpvRef = useRef() // TODO move to atom?
     const [message, setMessage] = useState({
