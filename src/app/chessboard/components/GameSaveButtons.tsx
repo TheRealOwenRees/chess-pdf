@@ -1,21 +1,20 @@
-import { Message } from "@/types";
+import { useAtom, useSetAtom } from "jotai";
+import { gameAtom, messageAtom } from "@/atoms";
 
-import { useAtom } from "jotai/index";
-import { gameAtom } from "@/atoms";
-
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { handleSavePDF, handleSavePGN } from "@/handlers/pgnHandlers";
 import { trpc } from "@/utils/trpc";
 
-const GameSaveButtons = ({ setMessage }: { setMessage: Dispatch<SetStateAction<Message>> }) => {
-  const [generatingPDF, setGeneratingPDF] = useState(false);
+const GameSaveButtons = () => {
   const [gameState] = useAtom(gameAtom);
-
-  const savePDFButtonText = generatingPDF ? "Generating..." : "Save as PDF";
+  const setMessageAtom = useSetAtom(messageAtom)
   const errorContact = trpc.discordErrorLog.useMutation();
 
+  const [generatingPDF, setGeneratingPDF] = useState(false);
+  const savePDFButtonText = generatingPDF ? "Generating..." : "Save as PDF";
+
   return (
-    <div className="flex flex-col sm:flex-row w-full gap-4 justify-between mt-8">
+    <div className="flex flex-col sm:flex-row w-full gap-4 justify-between mt-8 mb-4">
       <button disabled={!gameState.pgn}
               className="btn btn-primary btn-outline"
               onClick={(e) => handleSavePGN(e, gameState)}>
@@ -23,7 +22,7 @@ const GameSaveButtons = ({ setMessage }: { setMessage: Dispatch<SetStateAction<M
       </button>
       <button disabled={!gameState.pgn && !generatingPDF}
               className="btn btn-primary btn-outline"
-              onClick={(e) => handleSavePDF(e, gameState, setGeneratingPDF, setMessage, errorContact)}>
+              onClick={(e) => handleSavePDF(e, gameState, setGeneratingPDF, setMessageAtom, errorContact)}>
         {savePDFButtonText}
       </button>
     </div>

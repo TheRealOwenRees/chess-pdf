@@ -3,7 +3,7 @@
 const FAQAccordion = () => {
 
   return (
-    <div className="join join-vertical w-3/4 max-w-lg col-span-2">
+    <div className="join join-vertical w-3/4 max-w-lg col-span-2" data-test="accordion">
       <div className="collapse collapse-plus join-item border-b border-base-300">
         <input type="radio" name="faq-accordion" data-test="accordion-item" />
         <div className="collapse-title text-xl font-medium">

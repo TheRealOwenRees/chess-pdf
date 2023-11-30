@@ -80,15 +80,16 @@ export interface GameAction {
   }
 }
 
-export interface MessageStatus {
-  isSuccess: boolean
-  isSending: boolean
-  message: string
-}
-
 export interface Message {
   type: string
   message: string
+}
+
+export interface MessageAtomState {
+  type: string
+  message: string
+  isSending: boolean
+  isSuccess: boolean
 }
 
 export type Action =
