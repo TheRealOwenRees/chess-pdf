@@ -10,8 +10,6 @@ import SectionDescription from "@/app/components/SectionDescription";
 import Feature from "@/app/components/Feature";
 import FAQAccordion from "@/app/components/Accordion";
 
-import '@/scss/index.scss'
-
 export default function Home() {
   return (
   <>

@@ -18,8 +18,8 @@ const Footer = () => {
           <p data-test="copyright">Copyright © 2023</p>
         </aside>
         <nav className="grid-flow-col text-2xl gap-4 place-self-center justify-self-end">
-          <Link href={githubURL} target="_blank" data-test="github-link"><LuGithub /></Link>
-          <Link href="/contact" data-test="contact-link"><LuMail /></Link>
+          <Link href={githubURL} target="_blank" data-test="github-link" className="hover:text-secondary"><LuGithub /></Link>
+          <Link href="/contact" data-test="contact-link" className="hover:text-secondary"><LuMail /></Link>
         </nav>
       </footer>
     )
