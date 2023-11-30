@@ -19,9 +19,9 @@ const ContactForm = () => {
   const setMessageAtom = useSetAtom(messageAtom)
 
   const renderAlert = () => {
-    if (message.isSuccess && message.message) {
+    if (message?.isSuccess && message?.message) {
       return <AlertSuccess />;
-    } else if (!message.isSuccess && message.message) {
+    } else if (!message?.isSuccess && message?.message) {
       return <AlertError />;
     }
   }
@@ -33,8 +33,8 @@ const ContactForm = () => {
     reset
   } = useForm<ContactFormValues>();
 
-  const submitButtonText = message.isSending ? "Sending..." : "Send";
-  const loadingSpinner = message.isSending ? "loading loading-spinner" : "";
+  const submitButtonText = message?.isSending ? "Sending..." : "Send";
+  const loadingSpinner = message?.isSending ? "loading loading-spinner" : "";
 
   const contact = trpc.discordContact.useMutation();
 
@@ -98,7 +98,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        disabled={message.isSending}
+        disabled={message?.isSending}
         className="btn btn-outline btn-primary">
         {submitButtonText}
         <span className={loadingSpinner}></span>
