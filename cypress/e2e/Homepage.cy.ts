@@ -10,4 +10,6 @@ describe('Homepage', () => {
   it('render footer', () => {
     cy.get('footer').should('be.visible')
   })
+
+  // TODO test that 'Get Started' button leads to /chessboard
 })

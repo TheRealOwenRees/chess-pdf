@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, ChangeEvent } from "react";
-import { ContactFormValues, GameProps, MessageStatus, Header } from "@/types";
+import { ChangeEvent } from "react";
+import { ContactFormValues, GameProps, Header, MessageAtomState } from "@/types";
 import { type UseFormReset } from "react-hook-form";
 
 export const handleInputChange = (
@@ -16,12 +16,12 @@ export const handleInputChange = (
 export const handleContactSubmit = async (
   data: ContactFormValues,
   reset: UseFormReset<ContactFormValues>,
-  contact: any,
-  setMessageStatus: Dispatch<SetStateAction<MessageStatus>>
+  contact: any, // TODO fix any
+  setMessageAtom: (newValue: (prevState: MessageAtomState) => any) => void
 ) => {
 
   try {
-    setMessageStatus(prevState => ({
+    setMessageAtom(prevState => ({
       ...prevState,
       isSending: true
     }));
@@ -30,7 +30,7 @@ export const handleContactSubmit = async (
 
     const response = await contact.mutateAsync(data);
     if (response) {
-      setMessageStatus(prevState => ({
+      setMessageAtom(prevState => ({
         isSuccess: true,
         isSending: false,
         message: "Message sent!"
@@ -39,18 +39,19 @@ export const handleContactSubmit = async (
     }
   } catch (error) {
     console.log(error);
-    setMessageStatus(prevState => ({
+    setMessageAtom(prevState => ({
+      ...prevState,
       isSuccess: false,
       isSending: false,
       message: "Something went wrong. Please try again later."
     }));
   } finally {
     setTimeout(() => {
-      setMessageStatus(prevState => ({
+      setMessageAtom(prevState => ({
         ...prevState,
         isSuccess: false,
         message: ""
       }));
-    }, 5000);
+    }, 10000);
   }
 };

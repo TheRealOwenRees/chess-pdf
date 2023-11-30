@@ -1,22 +1,30 @@
 "use client";
 
 import { ContactFormValues } from "@/types";
+
+import { useAtomValue, useSetAtom } from "jotai";
+import { messageAtom } from "@/atoms";
 import { trpc } from "@/utils/trpc";
 
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import TextField from "@/app/contact/components/TextField";
 import AlertSuccess from "@/app/components/AlertSuccess";
+import AlertError from "@/app/components/AlertError";
 
 import { handleContactSubmit } from "@/handlers/contactHandlers";
 
 const ContactForm = () => {
-  const [messageStatus, setMessageStatus] = useState({
-    isSuccess: false,
-    isSending: false,
-    message: ""
-  });
+  const message = useAtomValue(messageAtom)
+  const setMessageAtom = useSetAtom(messageAtom)
+
+  const renderAlert = () => {
+    if (message.isSuccess && message.message) {
+      return <AlertSuccess />;
+    } else if (!message.isSuccess && message.message) {
+      return <AlertError />;
+    }
+  }
 
   const {
     register,
@@ -25,13 +33,13 @@ const ContactForm = () => {
     reset
   } = useForm<ContactFormValues>();
 
-  const submitButtonText = messageStatus.isSending ? "Sending..." : "Send";
-  const loadingSpinner = messageStatus.isSending ? "loading loading-spinner" : "";
+  const submitButtonText = message.isSending ? "Sending..." : "Send";
+  const loadingSpinner = message.isSending ? "loading loading-spinner" : "";
 
   const contact = trpc.discordContact.useMutation();
 
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
-    await handleContactSubmit(data, reset, contact, setMessageStatus);
+    await handleContactSubmit(data, reset, contact, setMessageAtom);
   };
 
   return (
@@ -90,13 +98,12 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        disabled={messageStatus.isSending}
+        disabled={message.isSending}
         className="btn btn-outline btn-primary">
         {submitButtonText}
         <span className={loadingSpinner}></span>
       </button>
-
-      {messageStatus.isSuccess && <AlertSuccess message={messageStatus.message} />}
+      {renderAlert()}
     </form>
   );
 };

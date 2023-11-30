@@ -3,6 +3,7 @@ import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
 import { openPDFInNewTab } from "@/utils/pdfUtils";
+import { handleSetMessage } from "@/handlers/messageHandlers";
 
 // TODO tidy this all up
 
@@ -64,8 +65,8 @@ export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
     setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
-    setMessage: Dispatch<SetStateAction<Message>>,
-    errorContact: any
+    setMessageAtom: any,  // TODO fix any type
+    errorContact: any // TODO fix any type
 ) => {
   e.preventDefault()
   setGeneratingPDF(true)
@@ -81,11 +82,8 @@ export const handleSavePDF = async (
     },
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams })
   })
-    openPDFInNewTab(await response.blob())  // TODO add reponse here? Make sure it opened before setting message
-    setMessage({
-      type: 'success',
-      message: 'PDF generated successfully'
-    })
+    openPDFInNewTab(await response.blob())  // TODO add response here? Make sure it opened before setting message
+    handleSetMessage('success', 'PDF generated successfully', setMessageAtom)
   } catch (error: any) {
     // TODO format time
     // TODO send full error message
@@ -94,16 +92,9 @@ export const handleSavePDF = async (
       error: error.message
     })
     if (response) {
-      setMessage({
-        type: 'error',
-        message: 'Something went wrong generating the PDF'
-      })
+      handleSetMessage('error', 'Something went wrong generating the PDF', setMessageAtom)
     }
   } finally {
     setGeneratingPDF(false)
-    setTimeout(() => setMessage({
-      type: '',
-      message: ''
-    }), 10000)
   }
 }
