@@ -1,4 +1,4 @@
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import { gameAtom } from "@/atoms";
 
 import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
