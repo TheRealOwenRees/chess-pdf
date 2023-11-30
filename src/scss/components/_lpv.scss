@@ -1,10 +1,10 @@
 /* LPV Overrides */
 
 /* CSS */
-@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer';
+@import '../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer';
 
 .lpv-board {
-  max-width: 800px;
+  max-width: 600px;
   --board-color: #886f46;
   font-family: 'Noto Sans', 'sans-serif';
 }
