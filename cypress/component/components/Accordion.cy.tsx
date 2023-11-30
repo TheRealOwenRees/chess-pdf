@@ -2,18 +2,22 @@ import Accordion from "@/app/components/Accordion"
 
 describe('<Accordion />', () => {
   beforeEach(() => {
-    cy.mount(<Accordion className={'testClass'} />)
+    cy.mount(<Accordion />)
   })
 
-  it('item is visible', () => {
-    cy.getBySel('accordion-item').should('be.visible')
+  it('all items should be visible', () => {
+    cy.getBySel('accordion-item').should('have.length', 3).and('be.visible')
   })
 
-  it('text is hidden until accordion is clicked, hiding when clicked again', () => {
-    cy.getBySel('accordion-text').should('not.exist')
-    cy.get('button').eq(0).click()  // button is not in component but is in DOM
-    cy.getBySel('accordion-text').should('be.visible')
-    cy.get('button').eq(0).click()
-    cy.getBySel('accordion-text').should('not.exist')
+  it('no items are checked on mount', () => {
+    cy.getBySel('accordion-item').should('not.be.checked')
+  })
+
+  it('clicking each items leaves only one checked at a time', () => {
+    cy.getBySel('accordion-item').each((item, index) => {
+      cy.wrap(item).click()
+      cy.wrap(item).should('be.checked')
+      cy.getBySel('accordion-item').not(':eq(' + index + ')').should('not.be.checked')
+    })
   })
 })
