@@ -12,8 +12,7 @@ import SectionLargeHeading from "@/app/components/SectionLargeHeading";
 import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
 import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
 
-import { useLpvBoardButtonClicks } from "@/hooks/useBoardButtonClicks";
-import { useLpvMoveListClicks } from "@/hooks/useMoveListClicks";
+import { useLpvBoardButtonClicks,  } from "@/hooks/useBoardClicks";
 import AlertError from "@/app/components/AlertError";
 import AlertSuccess from "@/app/components/AlertSuccess";
 
@@ -24,8 +23,7 @@ const ChessboardLayout = () => {
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
     const lpvRef = useRef() // TODO move to atom?
 
-    useLpvBoardButtonClicks(checkboxRef, lpvRef)
-    useLpvMoveListClicks(checkboxRef)
+    useLpvBoardButtonClicks(checkboxRef)
 
     const renderAlert = () => {
         if (message?.type === 'success' && message.message) {
