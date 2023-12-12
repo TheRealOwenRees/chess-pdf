@@ -1,19 +1,21 @@
-import { Action, DiagramProps, GameProps, Header } from "@/types";
+import { DiagramProps, GameAction, GameProps, Header } from "@/types";
 import { defaultHeaderFields } from "@/utils/pgnUtils";
 
 export const initialGameState = {
   pgn: undefined,
   headers: defaultHeaderFields as Header,
-  diagrams: [] as DiagramProps[]
+  diagrams: [] as DiagramProps[],
+  diagramClock: false
 }
 
-export const gameReducer = (state: GameProps, action: Action) => {
+export const gameReducer = (state: GameProps, action: GameAction) => {
   switch (action.type) {
     case 'SET_GAME':
       return {
         pgn: action.payload.pgn,
         headers: action.payload.headers,
-        diagrams: []
+        diagrams: [],
+        diagramClock: false
       }
     case 'CLEAR_GAME':
       return initialGameState
@@ -31,6 +33,11 @@ export const gameReducer = (state: GameProps, action: Action) => {
       return {
         ...state,
         diagrams: state.diagrams.filter((diagram: DiagramProps) => diagram.ply !== action.payload.ply)
+      }
+    case 'TOGGLE_DIAGRAM_CLOCK':
+      return {
+        ...state,
+        diagramClock: action.payload,
       }
     default:
       return state

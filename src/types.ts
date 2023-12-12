@@ -21,6 +21,7 @@ export interface GameProps {
   pgn: GamePGN,
   headers: Header,
   diagrams: DiagramProps[]
+  diagramClock: boolean
 }
 
 export interface BoardProps {
@@ -70,15 +71,15 @@ export interface TextFieldProps {
 }
 
 // Game Context Reducer
-export interface GameAction {
-  type: 'SET_GAME' | 'CLEAR_GAME' | 'SET_HEADERS' | 'ADD_DIAGRAM' | 'DELETE_DIAGRAM'
-  payload?: {
-    pgn?: string
-    headers?: Header
-    ply?: number
-    fen?: string
-  }
-}
+// export interface GameAction {
+//   type: 'SET_GAME' | 'CLEAR_GAME' | 'SET_HEADERS' | 'ADD_DIAGRAM' | 'DELETE_DIAGRAM'
+//   payload?: {
+//     pgn?: string
+//     headers?: Header
+//     ply?: number
+//     fen?: string
+//   }
+// }
 
 export interface Message {
   type: string
@@ -92,9 +93,10 @@ export interface MessageAtomState {
   isSuccess: boolean
 }
 
-export type Action =
+export type GameAction =
   | { type: 'SET_GAME'; payload: { pgn: string; headers: Header } }
   | { type: 'CLEAR_GAME' }
   | { type: 'SET_HEADERS'; payload: Header }
   | { type: 'ADD_DIAGRAM'; payload: DiagramProps }
-  | { type: 'DELETE_DIAGRAM'; payload: { ply: number } };
+  | { type: 'DELETE_DIAGRAM'; payload: { ply: number } }
+  | { type: 'TOGGLE_DIAGRAM_CLOCK'; payload: boolean };
