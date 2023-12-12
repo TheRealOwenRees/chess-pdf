@@ -1,4 +1,4 @@
-import { DiagramProps, GameAction, GameProps } from "@/types";
+import { DiagramProps, GameAction } from "@/types";
 import { Dispatch, RefObject } from "react";
 
 export const lpvDiagramCheckboxDisabledHandler = (checkboxRef: RefObject<HTMLInputElement>, ply: number) => {
@@ -20,7 +20,14 @@ export const lpvDiagramCheckboxHandler = (
 ) => {
   // TODO these 3 lines also appear in elsewhere - make it DRY
   // TODO will this give the same bugs as before in useBoardClicks? Check that all moves are accounted for.
-  let moves = [...document.querySelectorAll('move')].filter(m => m.parentNode?.querySelector('variation') && m.className !== 'empty')
+  // let moves = [...document.querySelectorAll('move')].filter(m => m.parentNode?.querySelector('variation') && m.className !== 'empty')
+
+  const variationTags = document.querySelector('variation')
+  const moves = [...document.querySelectorAll('move')].filter(m => {
+    if (!variationTags) return m.className !== "empty"
+    return m.parentNode?.querySelector("variation") && m.className !== "empty";
+  })
+
   let ply = moves.findIndex(m => m.classList.contains('current')) + 1
   let fen = lpvRef.current?.curData().fen
 
@@ -37,10 +44,10 @@ export const lpvDiagramClockToggleHandler = (
   gameDispatch: Dispatch<GameAction>,
   toggleRef: RefObject<HTMLInputElement>) => {
   if (toggleRef.current?.checked) {
-    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: { diagramClock: true } })
+    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: true })
   }
 
   if (!toggleRef.current?.checked) {
-    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: { diagramClock: false } })
+    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: false })
   }
 }
