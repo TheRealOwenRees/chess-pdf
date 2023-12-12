@@ -9,7 +9,7 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
   const [gameState] = useAtom(gameAtom)
   const { diagrams } = gameState
 
-  const setupBoardListener = () => {
+  const boardEventListener = () => {
     const variationTags = document.querySelector('variation')
     const moves = [...document.querySelectorAll('move')].filter(m => {
       if (!variationTags) return m.className !== "empty"
@@ -20,7 +20,7 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
   }
 
   const handleClick = () => {
-    const { ply } = setupBoardListener()
+    const { ply } = boardEventListener()
     lpvDiagramCheckboxDisabledHandler(checkboxRef, ply)
     lpvDiagramCheckboxCheckedHandler(diagrams, checkboxRef, ply)
   }
