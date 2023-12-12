@@ -1,9 +1,7 @@
 import { useAtom } from "jotai";
 import { gameAtom } from "@/atoms";
 import { RefObject, useEffect } from "react";
-import {
-  lpvDiagramCheckboxDisabledHandler, lpvDiagramCheckboxCheckedHandler
-} from "@/handlers/diagramCheckboxHandlers";
+import { lpvDiagramCheckboxDisabledHandler, lpvDiagramCheckboxCheckedHandler } from "@/handlers/diagramCheckboxHandlers";
 
 export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>) => {
   const [gameState] = useAtom(gameAtom)

@@ -5,9 +5,6 @@ import { downloadString } from "@/utils/stringUtils";
 import { openPDFInNewTab } from "@/utils/pdfUtils";
 import { handleSetMessage } from "@/handlers/messageHandlers";
 
-// TODO tidy this all up
-
-// TODO write tests for these handlers
 export const handleClearGame = (
   e: MouseEvent<HTMLButtonElement>,
   gameDispatch: any) => { // TODO fix any type
@@ -17,7 +14,6 @@ export const handleClearGame = (
   gameDispatch({ type: 'CLEAR_GAME' })
 }
 
-// TODO write tests for these handlers
 export const handleLoadPGN = (
   e: ChangeEvent<HTMLInputElement>,
   gameDispatch: any) => { // TODO fix any type
@@ -53,14 +49,12 @@ export const handleLoadPGN = (
   }
 }
 
-// TODO write tests for these handlers
 export const handleSavePGN = (e: MouseEvent<HTMLButtonElement>, gameState: GameProps) => {
   e.preventDefault()
   const pgnString = buildPgnString(gameState)
   downloadString(pgnString, 'game.pgn')
 }
 
-// TODO write tests for these handlers
 export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
@@ -80,7 +74,7 @@ export const handleSavePDF = async (
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ pgn: pgnString, diagrams: diagrams })
+    body: JSON.stringify({ pgn: pgnString, diagrams: diagrams, diagramClock: gameState.diagramClock })
   })
     openPDFInNewTab(await response.blob())  // TODO add response here? Make sure it opened before setting message
     handleSetMessage('success', 'PDF generated successfully', setMessageAtom)
