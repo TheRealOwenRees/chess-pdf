@@ -14,12 +14,12 @@ export const lpvDiagramCheckboxCheckedHandler = (diagrams: DiagramProps[], check
 }
 
 export const lpvDiagramCheckboxHandler = (
-  gameState: GameProps,
   gameDispatch: Dispatch<GameAction>,
   checkboxRef: RefObject<HTMLInputElement>,
   lpvRef: RefObject<any> // TODO fix any
 ) => {
-  // TODO these 3 lines also appear in diagramCheckboxHandlers.ts - make it DRY
+  // TODO these 3 lines also appear in elsewhere - make it DRY
+  // TODO will this give the same bugs as before in useBoardClicks? Check that all moves are accounted for.
   let moves = [...document.querySelectorAll('move')].filter(m => m.parentNode?.querySelector('variation') && m.className !== 'empty')
   let ply = moves.findIndex(m => m.classList.contains('current')) + 1
   let fen = lpvRef.current?.curData().fen
@@ -31,4 +31,16 @@ export const lpvDiagramCheckboxHandler = (
     if (!checkboxRef.current?.checked && ply > 0) {
       gameDispatch({ type: 'DELETE_DIAGRAM', payload: { ply } })
     }
+}
+
+export const lpvDiagramClockToggleHandler = (
+  gameDispatch: Dispatch<GameAction>,
+  toggleRef: RefObject<HTMLInputElement>) => {
+  if (toggleRef.current?.checked) {
+    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: { diagramClock: true } })
+  }
+
+  if (!toggleRef.current?.checked) {
+    gameDispatch({ type: 'TOGGLE_DIAGRAM_CLOCK', payload: { diagramClock: false } })
+  }
 }
