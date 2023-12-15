@@ -22,7 +22,7 @@
     "@trpc/react-query": "^10.44.1",
     "@trpc/server": "^10.44.1",
     "@vercel/analytics": "^1.1.1",
-    "framer-motion": "^10.16.5",
+    "framer-motion": "^10.16.16",
     "jotai": "^2.6.0",
     "lichess-pgn-viewer": "^2.0.1",
     "next": "13.5.6",
