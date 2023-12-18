@@ -110,7 +110,7 @@ const ContactForm = () => {
       <button
         type="submit"
         disabled={message?.isSending}
-        className="btn btn-outline btn-primary">
+        className="btn btn-outline btn-primary mb-4">
         {submitButtonText}
         {sendButtonIcons}
       </button>
