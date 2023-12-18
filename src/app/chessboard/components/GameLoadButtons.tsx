@@ -12,7 +12,7 @@ const GameLoadButtons = () => {
         type="file"
         id="fileInput"
         className="file-input file-input-md file-input-bordered file-input-primary max-w-xs"
-        accept=".pgn"
+        accept=".pgn, application/x-chess-pgn"
         onChange={(e) => handleLoadPGN(e, gameDispatch)}
       />
       <button className="btn btn-primary btn-outline w-full md:w-1/4"
