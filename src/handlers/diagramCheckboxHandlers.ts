@@ -27,14 +27,12 @@ export const lpvDiagramCheckboxHandler = (
 
   let ply = moves.findIndex(m => m.classList.contains('current')) + 1
   let fen = lpvRef.current?.curData().fen
-  // console.log(lpvRef.current?.curData())
-  // console.log(lpvRef.current?.curData().ply) // this works
 
   if (checkboxRef.current?.checked && ply > 0) {
       gameDispatch({ type: 'ADD_DIAGRAM', payload: { ply, fen } })
     }
 
-    if (!checkboxRef.current?.checked && ply > 0) {
+  if (!checkboxRef.current?.checked && ply > 0) {
       gameDispatch({ type: 'DELETE_DIAGRAM', payload: { ply } })
     }
 }

@@ -19,38 +19,30 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
 
   const handleClick = () => {
     const { ply } = boardEventListener()
-
     lpvDiagramCheckboxDisabledHandler(checkboxRef, ply)
     lpvDiagramCheckboxCheckedHandler(diagrams, checkboxRef, ply)
   }
 
   useEffect(() => {
     const boardButtons = document.querySelector(".lpv__controls")
-    if (!boardButtons) return
+    const movesList = document.querySelector(".lpv__moves")
+    if (!boardButtons || !movesList) return
+
+    const clickHandlerDelay = () => {
+      setTimeout(() => handleClick(), 250);
+    }
 
     boardButtons?.addEventListener('click', handleClick)
     boardButtons?.addEventListener('touchstart', handleClick)
+    movesList.addEventListener('click', clickHandlerDelay);
+    movesList.addEventListener('touchstart', clickHandlerDelay);
+
 
     return () => {
       boardButtons?.removeEventListener('click', handleClick)
       boardButtons?.removeEventListener('touchstart', handleClick)
+      movesList.removeEventListener('click', clickHandlerDelay);
+      movesList.removeEventListener('touchstart', clickHandlerDelay);
     }
-  })
-
-  useEffect(() => {
-    const movesList = document.querySelector(".lpv__moves")
-    if (!movesList) return
-
-    const clickHandler = () => {
-      setTimeout(() => handleClick(), 250);
-    };
-
-    movesList.addEventListener('click', clickHandler);
-    movesList.addEventListener('touchstart', clickHandler);
-
-    return () => {
-      movesList.removeEventListener('click', clickHandler);
-      movesList.removeEventListener('touchstart', clickHandler);
-    };
   })
 }
