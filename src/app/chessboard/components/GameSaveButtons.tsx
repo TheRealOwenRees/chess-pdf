@@ -14,7 +14,7 @@ const GameSaveButtons = () => {
   const savePDFButtonText = generatingPDF ? "Generating..." : "Save as PDF";
 
   return (
-    <div className="flex flex-col sm:flex-row w-full gap-4 justify-between mt-8 mb-4">
+    <div className="flex flex-col md:flex-row w-full gap-4 justify-between mt-8 mb-4">
       <button disabled={!gameState.pgn}
               className="btn btn-primary btn-outline"
               onClick={(e) => handleSavePGN(e, gameState)}>
