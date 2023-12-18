@@ -1,15 +1,19 @@
 "use client";
 
 import { GameProps } from "@/types";
+
+import { useAtom, useAtomValue } from "jotai";
+import { gameAtom, messageAtom } from "@/atoms";
+
 import { MutableRefObject } from "react";
 import { lpvDiagramCheckboxHandler } from "@/handlers/diagramCheckboxHandlers";
 
-const DiagramCheckbox = ({ checkboxRef, gameState, gameDispatch, lpvRef }: {
+const DiagramCheckbox = ({ checkboxRef, lpvRef }: {
   checkboxRef: MutableRefObject<HTMLInputElement | null>,
-  gameState: GameProps,
-  gameDispatch: any,
   lpvRef: MutableRefObject<any>
 }) => {
+
+  const [_, gameDispatch] = useAtom(gameAtom)
 
   return (
     <label className="label cursor-pointer">

@@ -1,7 +1,7 @@
 'use client'
 
-import { useAtom, useAtomValue } from "jotai";
-import { gameAtom, messageAtom } from "@/atoms";
+import { useAtomValue } from "jotai";
+import { messageAtom } from "@/atoms";
 
 import { useRef } from "react";
 
@@ -18,8 +18,6 @@ import AlertError from "@/app/components/AlertError";
 import AlertSuccess from "@/app/components/AlertSuccess";
 
 const ChessboardLayout = () => {
-    const [gameState, gameDispatch] = useAtom(gameAtom)
-    // TODO in DiagramCheckbox, use atoms for gamestate and dispatch, rather than passing as props
     const message = useAtomValue(messageAtom)
 
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
@@ -44,7 +42,7 @@ const ChessboardLayout = () => {
                     <Lpv ref={lpvRef} />
                 </div>
                 <div className="flex justify-between">
-                    <DiagramCheckbox checkboxRef={checkboxRef} gameState={gameState} gameDispatch={gameDispatch} lpvRef={lpvRef} />
+                    <DiagramCheckbox checkboxRef={checkboxRef} lpvRef={lpvRef} />
                     <DiagramClockToggle />
                 </div>
                 <GameSaveButtons />
