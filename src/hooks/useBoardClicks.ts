@@ -3,7 +3,7 @@ import { gameAtom } from "@/atoms";
 import { RefObject, useEffect } from "react";
 import { lpvDiagramCheckboxDisabledHandler, lpvDiagramCheckboxCheckedHandler } from "@/handlers/diagramCheckboxHandlers";
 
-export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>) => {
+export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>, lpvRef: RefObject<any>) => {
   const [gameState] = useAtom(gameAtom)
   const { diagrams } = gameState
 
@@ -19,6 +19,7 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
 
   const handleClick = () => {
     const { ply } = boardEventListener()
+
     lpvDiagramCheckboxDisabledHandler(checkboxRef, ply)
     lpvDiagramCheckboxCheckedHandler(diagrams, checkboxRef, ply)
   }
@@ -28,9 +29,11 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
     if (!boardButtons) return
 
     boardButtons?.addEventListener('click', handleClick)
+    boardButtons?.addEventListener('touchstart', handleClick)
 
     return () => {
       boardButtons?.removeEventListener('click', handleClick)
+      boardButtons?.removeEventListener('touchstart', handleClick)
     }
   })
 
@@ -43,9 +46,11 @@ export const useLpvBoardButtonClicks = (checkboxRef: RefObject<HTMLInputElement>
     };
 
     movesList.addEventListener('click', clickHandler);
+    movesList.addEventListener('touchstart', clickHandler);
 
     return () => {
       movesList.removeEventListener('click', clickHandler);
+      movesList.removeEventListener('touchstart', clickHandler);
     };
   })
 }

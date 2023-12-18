@@ -8,7 +8,7 @@ import { lpvDiagramClockToggleHandler } from "@/handlers/diagramCheckboxHandlers
 const DiagramClockToggle = () => {
   const [gameState, gameDispatch] = useAtom(gameAtom)
   const toggleRef = useRef<HTMLInputElement>(null)
-  console.log(gameState)
+
   return (
     <div className="form-control">
       <label className="cursor-pointer label">

@@ -23,7 +23,7 @@ const ChessboardLayout = () => {
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
     const lpvRef = useRef() // TODO move to atom?
 
-    useLpvBoardButtonClicks(checkboxRef)
+    useLpvBoardButtonClicks(checkboxRef, lpvRef)
 
     const renderAlert = () => {
         if (message?.type === 'success' && message.message) {
