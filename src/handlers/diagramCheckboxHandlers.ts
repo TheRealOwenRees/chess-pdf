@@ -18,10 +18,7 @@ export const lpvDiagramCheckboxHandler = (
   checkboxRef: RefObject<HTMLInputElement>,
   lpvRef: RefObject<any> // TODO fix any
 ) => {
-  // TODO these 3 lines also appear in elsewhere - make it DRY
-  // TODO will this give the same bugs as before in useBoardClicks? Check that all moves are accounted for.
-  // let moves = [...document.querySelectorAll('move')].filter(m => m.parentNode?.querySelector('variation') && m.className !== 'empty')
-
+  // TODO these lines also appear in elsewhere - make it DRY
   const variationTags = document.querySelector('variation')
   const moves = [...document.querySelectorAll('move')].filter(m => {
     if (!variationTags) return m.className !== "empty"
@@ -30,6 +27,8 @@ export const lpvDiagramCheckboxHandler = (
 
   let ply = moves.findIndex(m => m.classList.contains('current')) + 1
   let fen = lpvRef.current?.curData().fen
+  // console.log(lpvRef.current?.curData())
+  // console.log(lpvRef.current?.curData().ply) // this works
 
   if (checkboxRef.current?.checked && ply > 0) {
       gameDispatch({ type: 'ADD_DIAGRAM', payload: { ply, fen } })

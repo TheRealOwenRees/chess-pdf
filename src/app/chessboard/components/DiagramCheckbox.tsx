@@ -1,9 +1,7 @@
 "use client";
 
-import { GameProps } from "@/types";
-
-import { useAtom, useAtomValue } from "jotai";
-import { gameAtom, messageAtom } from "@/atoms";
+import { useAtom } from "jotai";
+import { gameAtom } from "@/atoms";
 
 import { MutableRefObject } from "react";
 import { lpvDiagramCheckboxHandler } from "@/handlers/diagramCheckboxHandlers";
