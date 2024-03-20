@@ -17,7 +17,7 @@
     "@trpc/next": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
-    "@vercel/analytics": "^1.1.1",
+    "@vercel/analytics": "^1.2.2",
     "framer-motion": "^10.18.0",
     "jotai": "^2.7.0",
     "lichess-pgn-viewer": "^2.0.1",
