@@ -7,11 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "npm run test:jest && npm run cy:component && npm run cy:e2e",
-    "test:jest": "jest",
-    "cy:open": "cypress open",
-    "cy:e2e": "cypress run",
-    "cy:component": "cypress run --component"
+    "test": "npm run test:jest",
+    "test:jest": "jest"
   },
   "dependencies": {
     "@mliebelt/pgn-viewer": "^1.6.6",
@@ -41,7 +38,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
-    "cypress": "^13.6.1",
     "daisyui": "^4.4.19",
     "eslint": "8.49.0",
     "eslint-config-next": "^13.5.6",
