@@ -10,10 +10,10 @@ const config: Config = {
      themes: [
        {
          customLightTheme: {
-           primary: '#4a00ff',
-           'primary-content': '#d1dbff',
-           secondary: '#ff00d3',
-           'secondary-content': '#fff8fd',
+           primary: '#6f884d',
+           'primary-content': '#ffffff',
+           secondary: '#B8B666',
+           'secondary-content': '#ffffff',
            accent: '#00d7c0',
            'accent-content': '#00110e',
            'neutral': '#4B5563',
@@ -27,7 +27,6 @@ const config: Config = {
      ]
   },
   plugins: [
-    require('@tailwindcss/typography'),
     require('daisyui')
   ],
 }
