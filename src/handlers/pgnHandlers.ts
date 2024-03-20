@@ -40,12 +40,17 @@ export const handleLoadPGN = (
         const headers = getHeaders(pgnString)
         gameDispatch({ type: 'SET_GAME', payload: { pgn: pgnString, headers: headers } })
       } else {
-        gameDispatch({ type: 'CLEAR_GAME' }) // TODO throw an error handling this case more explicitly
+        gameDispatch({ type: 'CLEAR_GAME' })
       }
     }
     reader.readAsText(selectedFile);
   } else {
-    gameDispatch({ type: 'CLEAR_GAME' }) // TODO throw an error, showing a message on screen that the file type is not supported
+    gameDispatch({ type: 'CLEAR_GAME' })
+    console.log('not a supported file')
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement
+    fileInput.value = ''
+    e.target.files = null;
+    alert('Not a supported file type') // TODO replace with toast
   }
 }
 
