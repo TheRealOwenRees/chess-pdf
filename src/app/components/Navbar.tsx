@@ -14,7 +14,7 @@ const Navbar = () => {
              <Image src={logo} alt="Chess PDF Logo" width={50} height={50} className="mr-4" />
            </Link>
            <Link href="/" data-test="homepage-nav-link">
-             <span className="text-2xl font-extrabold text-primary hidden sm:block">Chess PDF</span>
+             <span className="text-2xl font-extrabold text-primary hidden sm:block">ChessScribe</span>
            </Link>
          </div>
 

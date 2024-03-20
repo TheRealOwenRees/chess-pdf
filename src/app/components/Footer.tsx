@@ -13,7 +13,7 @@ const Footer = () => {
           <Link href="/" data-test="homepage-link">
             <Image src={footerLogo} alt="Chess PDF" className="w-10 h-10" />
           </Link>
-          <p data-test="copyright">Copyright © 2023</p>
+          <p data-test="copyright">Copyright © 2023 - {new Date().getFullYear()}</p>
         </aside>
         <nav className="grid-flow-col text-2xl gap-4 place-self-center justify-self-end">
           <Link href={githubURL} target="_blank" data-test="github-link" className="hover:text-secondary"><LuGithub /></Link>
