@@ -1,11 +1,27 @@
 /* LPV Overrides */
+/* https://github.com/lichess-org/pgn-viewer/blob/master/scss/_lichess-pgn-viewer.lib.scss */
+//$lpv-site-hue: 85 !default;
+//$lpv-accent: hsl($lpv-site-hue, 28%, 42%) !default;
+//$lpv-bg: #fff !default;
+//$lpv-bg-variation: hsl(0, 0%, 94%) !default;
+//$lpv-font: #000 !default;
+//$lpv-font-accent: hsl($lpv-site-hue, 28%, 42%) !default;
+/* move highlights */
+//$lpv-inaccuracy: hsl(202, 78%, 62%) !default;
+//$lpv-mistake: hsl(41, 100%, 45%) !default;
+//$lpv-blunder: hsl(0, 69%, 60%) !default;
+//$lpv-good-move: hsl(130, 67%, 62%) !default;
+//$lpv-brilliant: hsl(129, 71%, 45%) !default;
+//$lpv-interesting: hsl(307, 80%, 70%) !default;
 
 /* CSS */
 @import '../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer';
 
 .lpv-board {
   max-width: 600px;
-  --board-color: #886f46;
+  --board-color: #b58863;
   font-family: 'Noto Sans', 'sans-serif';
 }
 
+//#91b866
+//#6f884d
