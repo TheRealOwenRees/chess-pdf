@@ -5,7 +5,7 @@ import SectionDescription from "@/app/components/SectionDescription";
 import ContactForm from "@/app/contact/components/ContactForm";
 
 export const metadata: Metadata = {
-    title: 'Chess PDF - Contact Us',
+    title: 'ChessScribe | Contact',
     description: 'Contact us with any questions or suggestions you have about this service',
 }
 

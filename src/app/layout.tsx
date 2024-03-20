@@ -13,7 +13,7 @@ import { Providers } from "@/providers/providers";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Chess PDF',
+  title: 'ChessScribe',
   description: 'Create PDFs of your chess games from a PGN file',
 }
 
