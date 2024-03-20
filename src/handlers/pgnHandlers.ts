@@ -2,7 +2,7 @@ import { GameAction, GameProps, Message } from "@/types";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
-import { openPDFInNewTab } from "@/utils/pdfUtils";
+import { downloadPDF } from "@/utils/pdfUtils";
 import { handleSetMessage } from "@/handlers/messageHandlers";
 
 export const handleClearGame = (
@@ -81,7 +81,7 @@ export const handleSavePDF = async (
     },
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams, diagramClock: gameState.diagramClock })
   })
-    openPDFInNewTab(await response.blob())  // TODO add response here? Make sure it opened before setting message
+    downloadPDF(await response.blob())  // TODO add response here? Make sure it opened before setting message
     handleSetMessage('success', 'PDF generated successfully', setMessageAtom)
   } catch (error: any) {
     // TODO format time
