@@ -5,9 +5,7 @@ import footerLogo from '@/img/footerLogo.svg'
 import Image from "next/image";
 
 const Footer = () => {
-  const githubURL = typeof Cypress !== 'undefined'
-    ? Cypress.env('GITHUB_URL')
-    : process.env.GITHUB_URL as string
+  const githubURL = process.env.GITHUB_URL as string
 
     return (
       <footer className="footer grid-cols-2 p-5 px-10 bg-primary w-full text-primary-content">
