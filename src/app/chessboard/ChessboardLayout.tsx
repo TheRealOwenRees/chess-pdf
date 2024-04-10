@@ -2,9 +2,7 @@
 
 import { useAtomValue } from "jotai";
 import { messageAtom } from "@/atoms";
-
 import { useRef } from "react";
-
 import Lpv from "@/app/chessboard/components/Lpv";
 import HeaderFields from "@/app/chessboard/components/HeaderFields";
 import DiagramCheckbox from "@/app/chessboard/components/DiagramCheckbox";
@@ -14,24 +12,15 @@ import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
 import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
 
 import { useLpvBoardButtonClicks } from "@/hooks/useBoardClicks";
-import AlertError from "@/app/components/AlertError";
-import AlertSuccess from "@/app/components/AlertSuccess";
+import useToast from "@/hooks/useToast";
 
 const ChessboardLayout = () => {
     const message = useAtomValue(messageAtom)
-
     const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
     const lpvRef = useRef() // TODO move to atom?
 
     useLpvBoardButtonClicks(checkboxRef, lpvRef)
-
-    const renderAlert = () => {
-        if (message?.type === 'success' && message.message) {
-            return <AlertSuccess />
-        } else if (message?.type === 'error' && message.message){
-            return <AlertError />
-        }
-    }
+    useToast(message, 'chessboard')
 
     return (
         <>
@@ -46,7 +35,6 @@ const ChessboardLayout = () => {
                     <DiagramClockToggle />
                 </div>
                 <GameSaveButtons />
-                {renderAlert()}
                 <HeaderFields />
             </main>
         </>

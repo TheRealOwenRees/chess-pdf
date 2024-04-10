@@ -2,7 +2,9 @@ import { Analytics } from '@vercel/analytics/react'
 import { ReactNode } from "react";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ToastContainer } from "react-toastify";
 import './globals.css'
+import "react-toastify/dist/ReactToastify.css";
 import '@/scss/index.scss'
 
 import Navbar from '@/app/components/Navbar'
@@ -31,7 +33,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="bg-base-100 grid">
           <Navbar />
-            <div className="relative min-h-[calc(100vh-114px-80px)] bg-white place-self-center">{children}</div>
+            <div className="relative min-h-[calc(100vh-114px-80px)] bg-white place-self-center">
+              {children}
+              <ToastContainer position="bottom-right" />
+            </div>
           <Footer />
         </div>
         <Analytics />
