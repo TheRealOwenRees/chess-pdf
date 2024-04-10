@@ -1,31 +1,18 @@
 "use client";
 
 import { ContactFormValues } from "@/types";
-
 import { useAtomValue, useSetAtom } from "jotai";
 import { messageAtom } from "@/atoms";
 import { trpc } from "@/utils/trpc";
-
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import TextField from "@/app/contact/components/TextField";
-import AlertSuccess from "@/app/components/AlertSuccess";
-import AlertError from "@/app/components/AlertError";
-
 import { handleContactSubmit } from "@/handlers/contactHandlers";
+import useToast from "@/hooks/useToast";
 
 const ContactForm = () => {
-  const message = useAtomValue(messageAtom)
+  const message = useAtomValue(messageAtom) // TODO use atom in hook instead
   const setMessageAtom = useSetAtom(messageAtom)
   const contact = trpc.discordContact.useMutation()
-
-  const renderAlert = () => {
-    if (message?.isSuccess && message?.message) {
-      return <AlertSuccess />;
-    } else if (!message?.isSuccess && message?.message) {
-      return <AlertError />;
-    }
-  }
 
   const {
     register,
@@ -52,6 +39,8 @@ const ContactForm = () => {
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
     await handleContactSubmit(data, reset, contact, setMessageAtom);
   };
+
+  useToast(message, 'contact')
 
   return (
     <form className="grid w-3/4 max-w-lg gap-4 md:col-span-2" onSubmit={handleSubmit(onSubmit)}>
@@ -114,7 +103,6 @@ const ContactForm = () => {
         {submitButtonText}
         {sendButtonIcons}
       </button>
-      {renderAlert()}
     </form>
   );
 };
