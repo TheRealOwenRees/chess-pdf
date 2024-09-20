@@ -20,7 +20,7 @@ export const handleLoadPGN = (
   e.preventDefault()
   const selectedFile = e.target.files && e.target.files[0]
 
-  if (selectedFile) {
+  if (selectedFile && selectedFile.name.endsWith('.pgn')) {
     const reader = new FileReader()
     reader.onload = (e) => {
       const pgnData = e.target?.result
