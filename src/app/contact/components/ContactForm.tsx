@@ -10,7 +10,7 @@ import { handleContactSubmit } from "@/handlers/contactHandlers";
 import useToast from "@/hooks/useToast";
 
 const ContactForm = () => {
-  const message = useAtomValue(messageAtom) // TODO use atom in hook instead
+  const message = useAtomValue(messageAtom)
   const setMessageAtom = useSetAtom(messageAtom)
   const contact = trpc.discordContact.useMutation()
 
