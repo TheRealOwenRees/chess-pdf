@@ -16,9 +16,8 @@ export const lpvDiagramCheckboxCheckedHandler = (diagrams: DiagramProps[], check
 export const lpvDiagramCheckboxHandler = (
   gameDispatch: Dispatch<GameAction>,
   checkboxRef: RefObject<HTMLInputElement>,
-  lpvRef: RefObject<any> // TODO fix any
+  lpvRef: RefObject<any>
 ) => {
-  // TODO these lines also appear in elsewhere - make it DRY
   const variationTags = document.querySelector('variation')
   const moves = [...document.querySelectorAll('move')].filter(m => {
     if (!variationTags) return m.className !== "empty"
