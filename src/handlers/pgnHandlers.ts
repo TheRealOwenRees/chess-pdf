@@ -20,7 +20,7 @@ export const handleLoadPGN = (
   e.preventDefault()
   const selectedFile = e.target.files && e.target.files[0]
 
-  if (selectedFile && (selectedFile.type.match(/chess-pgn/) || selectedFile.type === 'text/plain')) {
+  if (selectedFile) {
     const reader = new FileReader()
     reader.onload = (e) => {
       const pgnData = e.target?.result
