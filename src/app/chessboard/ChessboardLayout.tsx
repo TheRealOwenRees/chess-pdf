@@ -16,8 +16,8 @@ import useToast from "@/hooks/useToast";
 
 const ChessboardLayout = () => {
     const message = useAtomValue(messageAtom)
-    const checkboxRef = useRef<HTMLInputElement>(null) // TODO move to atom
-    const lpvRef = useRef() // TODO move to atom?
+    const checkboxRef = useRef<HTMLInputElement>(null)
+    const lpvRef = useRef()
 
     useLpvBoardButtonClicks(checkboxRef, lpvRef)
     useToast(message, 'chessboard')
