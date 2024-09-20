@@ -1,9 +1,9 @@
-import { GameAction, GameProps, Message } from "@/types";
+import { GameProps } from "@/types";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
 import { downloadPDF } from "@/utils/pdfUtils";
-import { handleSetMessage } from "@/handlers/messageHandlers";
+import { toast } from "react-toastify";
 
 export const handleClearGame = (
   e: MouseEvent<HTMLButtonElement>,
@@ -47,7 +47,9 @@ export const handleLoadPGN = (
     const fileInput = document.getElementById('fileInput') as HTMLInputElement
     fileInput.value = ''
     e.target.files = null;
-    alert('Not a supported file type') // TODO replace with toast
+    toast.error('Not a supported file type', {
+      toastId: 'file-type-error'
+    })
   }
 }
 
@@ -61,8 +63,7 @@ export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
     setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
-    setMessageAtom: any,  // TODO fix any type
-    errorContact: any // TODO fix any type
+    errorContact: any, // TODO fix any
 ) => {
   e.preventDefault()
   setGeneratingPDF(true)
@@ -79,7 +80,9 @@ export const handleSavePDF = async (
     body: JSON.stringify({ pgn: pgnString, diagrams: diagrams, diagramClock: gameState.diagramClock })
   })
     downloadPDF(await response.blob())  // TODO add response here? Make sure it opened before setting message
-    handleSetMessage('success', 'PDF generated successfully', setMessageAtom)
+    toast.success('PDF generated successfully', {
+      toastId: 'pdf-success'
+    })
   } catch (error: any) {
     // TODO format time
     // TODO send full error message
@@ -88,7 +91,9 @@ export const handleSavePDF = async (
       error: error.message
     })
     if (response) {
-      handleSetMessage('error', 'Something went wrong generating the PDF', setMessageAtom)
+      toast.error('Something went wrong generating the PDF', {
+        toastId: 'pdf-error'
+      })
     }
   } finally {
     setGeneratingPDF(false)
