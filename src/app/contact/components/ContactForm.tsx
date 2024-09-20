@@ -1,17 +1,14 @@
 "use client";
 
 import { ContactFormValues } from "@/types";
-import { useAtomValue, useSetAtom } from "jotai";
-import { messageAtom } from "@/atoms";
 import { trpc } from "@/utils/trpc";
 import { useForm, SubmitHandler } from "react-hook-form";
 import TextField from "@/app/contact/components/TextField";
 import { handleContactSubmit } from "@/handlers/contactHandlers";
-import useToast from "@/hooks/useToast";
+import { useState } from "react";
 
 const ContactForm = () => {
-  const message = useAtomValue(messageAtom)
-  const setMessageAtom = useSetAtom(messageAtom)
+  const [isSending, setIsSending] = useState(false);
   const contact = trpc.discordContact.useMutation()
 
   const {
@@ -21,9 +18,9 @@ const ContactForm = () => {
     reset
   } = useForm<ContactFormValues>();
 
-  const submitButtonText = message?.isSending ? "Sending..." : "Send";
+  const submitButtonText = isSending ? "Sending..." : "Send";
   const sendButtonIcons = (
-    message?.isSending
+    isSending
       ? <span className="loading loading-spinner"></span>
       : <svg width="24px"
              height="24px"
@@ -37,10 +34,8 @@ const ContactForm = () => {
   )
 
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
-    await handleContactSubmit(data, reset, contact, setMessageAtom);
+    await handleContactSubmit(data, reset, contact, setIsSending);
   };
-
-  useToast(message, 'contact')
 
   return (
     <form className="grid w-3/4 max-w-lg gap-4 md:col-span-2" onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +93,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        disabled={message?.isSending}
+        disabled={isSending}
         className="btn btn-outline btn-primary mb-4">
         {submitButtonText}
         {sendButtonIcons}
