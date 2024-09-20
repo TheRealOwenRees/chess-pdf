@@ -1,6 +1,7 @@
-import { ChangeEvent } from "react";
-import { ContactFormValues, GameProps, Header, MessageAtomState } from "@/types";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ContactFormValues, GameProps, Header } from "@/types";
 import { type UseFormReset } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export const handleInputChange = (
   e: ChangeEvent<HTMLInputElement>,
@@ -17,41 +18,24 @@ export const handleContactSubmit = async (
   data: ContactFormValues,
   reset: UseFormReset<ContactFormValues>,
   contact: any, // TODO fix any
-  setMessageAtom: (newValue: (prevState: MessageAtomState) => any) => void
+  setIsSending: Dispatch<SetStateAction<boolean>>,
 ) => {
 
   try {
-    setMessageAtom(prevState => ({
-      ...prevState,
-      isSending: true
-    }));
-
-    reset();  // clear form fields
+    setIsSending(true);
 
     const response = await contact.mutateAsync(data);
     if (response) {
-      setMessageAtom(prevState => ({
-        isSuccess: true,
-        isSending: false,
-        message: "Message sent!"
-      }));
-
+      toast.success("Message sent!", {
+        toastId: "contact-success"
+      });
+      reset();  // clear form fields
     }
   } catch (error) {
-    console.log(error);
-    setMessageAtom(prevState => ({
-      ...prevState,
-      isSuccess: false,
-      isSending: false,
-      message: "Something went wrong. Please try again later."
-    }));
+    toast.error("Something went wrong. Please try again later.", {
+      toastId: "contact-error"
+    });
   } finally {
-    setTimeout(() => {
-      setMessageAtom(prevState => ({
-        ...prevState,
-        isSuccess: false,
-        message: ""
-      }));
-    }, 10000);
+    setIsSending(false);
   }
 };
