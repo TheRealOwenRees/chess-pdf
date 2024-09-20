@@ -20,9 +20,7 @@ export const handleLoadPGN = (
   e.preventDefault()
   const selectedFile = e.target.files && e.target.files[0]
 
-  if (selectedFile && (
-    selectedFile.type === 'application/x-chess-pgn' ||
-    selectedFile.type === 'application/vnd.chess-pgn')) {
+  if (selectedFile && selectedFile.type.match(/chess-pgn/)) {
     const reader = new FileReader()
     reader.onload = (e) => {
       const pgnData = e.target?.result
@@ -46,7 +44,6 @@ export const handleLoadPGN = (
     reader.readAsText(selectedFile);
   } else {
     gameDispatch({ type: 'CLEAR_GAME' })
-    console.log('not a supported file')
     const fileInput = document.getElementById('fileInput') as HTMLInputElement
     fileInput.value = ''
     e.target.files = null;
