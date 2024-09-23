@@ -14,7 +14,11 @@ const useLichessOAuth = () => {
     setLichessUser({ username: '', loggedIn: false })
   }
 
-  return { lichessLogin, lichessLogout };
+  const lichessGetUserStudies = async () => {
+    console.log('getting studies')
+  }
+
+  return { lichessLogin, lichessLogout, lichessGetUserStudies };
 }
 
 export default useLichessOAuth;
