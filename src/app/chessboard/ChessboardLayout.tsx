@@ -1,7 +1,5 @@
 'use client'
 
-import { useAtomValue } from "jotai";
-import { messageAtom } from "@/atoms";
 import { useRef } from "react";
 import Lpv from "@/app/chessboard/components/Lpv";
 import HeaderFields from "@/app/chessboard/components/HeaderFields";
@@ -10,17 +8,13 @@ import DiagramClockToggle from "@/app/chessboard/components/DiagramClockToggle";
 import SectionLargeHeading from "@/app/components/SectionLargeHeading";
 import GameLoadButtons from "@/app/chessboard/components/GameLoadButtons";
 import GameSaveButtons from "@/app/chessboard/components/GameSaveButtons";
-
 import { useLpvBoardButtonClicks } from "@/hooks/useBoardClicks";
-import useToast from "@/hooks/useToast";
 
 const ChessboardLayout = () => {
-    const message = useAtomValue(messageAtom)
     const checkboxRef = useRef<HTMLInputElement>(null)
     const lpvRef = useRef()
 
     useLpvBoardButtonClicks(checkboxRef, lpvRef)
-    useToast(message, 'chessboard')
 
     return (
         <>
