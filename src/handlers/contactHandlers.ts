@@ -19,7 +19,6 @@ export const handleInputChange = (
 export const handleContactSubmit = async (
   data: ContactFormValues,
   reset: UseFormReset<ContactFormValues>,
-  contact: any, // TODO fix any
   setIsSending: Dispatch<SetStateAction<boolean>>,
 ) => {
 

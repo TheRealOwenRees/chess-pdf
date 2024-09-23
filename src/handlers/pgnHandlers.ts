@@ -64,7 +64,6 @@ export const handleSavePDF = async (
     e: MouseEvent<HTMLButtonElement>,
     gameState: GameProps,
     setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
-    errorContact: any, // TODO fix any
 ) => {
   e.preventDefault()
   setGeneratingPDF(true)
