@@ -8,11 +8,11 @@ import useLichessOAuth from "@/hooks/useLichessOAuth";
 
 const GameLoadButtons = () => {
   const [_, gameDispatch] = useAtom(gameAtom)
-  const { lichessOAuth } = useLichessOAuth();
+  const {lichessLogin} = useLichessOAuth()
 
   return (
     <div className="flex flex-col w-full items-center justify-between gap-4">
-      <button className="btn btn-outline hover:btn-primary group" onClick={lichessOAuth}>
+      <button className="btn btn-outline hover:btn-primary group" onClick={lichessLogin}>
         <LichessLogo className="w-5 h-5 fill-black stroke-black group-hover:fill-white group-hover:stroke-white" />
         Import from LiChess
       </button>

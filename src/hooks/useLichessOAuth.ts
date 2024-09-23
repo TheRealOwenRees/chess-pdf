@@ -1,9 +1,11 @@
+import { login } from "@/server/actions/lichess";
+
 const useLichessOAuth = () => {
-  const lichessOAuth = () => {
-    console.log('Lichess OAuth');
+  const lichessLogin = async () => {
+    await login()
   }
 
-  return { lichessOAuth };
+  return { lichessLogin };
 }
 
 export default useLichessOAuth;
