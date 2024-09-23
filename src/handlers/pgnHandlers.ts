@@ -4,6 +4,7 @@ import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { toast } from "react-toastify";
+import { logError } from "@/server/actions/errorLogging";
 
 export const handleClearGame = (
   e: MouseEvent<HTMLButtonElement>,
@@ -84,16 +85,13 @@ export const handleSavePDF = async (
       toastId: 'pdf-success'
     })
   } catch (error: any) {
-    // TODO format time
-    // TODO send full error message
-    const response = await errorContact.mutateAsync({
-      timestamp: new Date().toISOString(),
-      error: error.message
-    })
-    if (response) {
-      toast.error('Something went wrong generating the PDF', {
-        toastId: 'pdf-error'
-      })
+    if (error instanceof Error) {
+      const response = await logError(error.message)
+      if (response) {
+        toast.error('Something went wrong generating the PDF', {
+          toastId: 'pdf-error'
+        })
+      }
     }
   } finally {
     setGeneratingPDF(false)
