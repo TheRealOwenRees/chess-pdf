@@ -62,3 +62,16 @@ export const getLichessUser = async (token: string) => {
   })
   return await response.json()
 }
+
+/**
+ * Get the Lichess User Studies by a valid access token
+ * @param token
+ * @param username
+ */
+export const getLichessUserStudies = async (token: string, username: string) => {
+  return await fetch(`https://lichess.org/api/study/by/${username}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}

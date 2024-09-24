@@ -1,9 +1,9 @@
-import { login, logout } from "@/server/actions/lichess";
+import { getUserStudies, login, logout } from "@/server/actions/lichess";
 import { lichessUserAtom } from "@/atoms";
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 
 const useLichessOAuth = () => {
-  const setLichessUser = useSetAtom(lichessUserAtom)
+  const [lichessUser, setLichessUser] = useAtom(lichessUserAtom)
 
   const lichessLogin = async () => {
     await login()
@@ -15,7 +15,9 @@ const useLichessOAuth = () => {
   }
 
   const lichessGetUserStudies = async () => {
-    console.log('getting studies')
+    const response = await getUserStudies(lichessUser.username)
+    console.log(response)
+    return response
   }
 
   return { lichessLogin, lichessLogout, lichessGetUserStudies };
