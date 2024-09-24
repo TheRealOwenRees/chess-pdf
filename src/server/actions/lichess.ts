@@ -2,27 +2,49 @@
 
 // TODO add timeout of 60 seconds if response is 429
 
-import { cookies } from "next/headers";
+import lichessCookieManager from "@/lib/lichessCookieManager";
 import { redirect } from "next/navigation";
-import { challenge, getLichessToken, getLichessUser, getLichessUserStudies, verifier } from "@/lib/lichessOAuth";
+import {
+  challenge,
+  accessToken,
+  user,
+  userStudies,
+  verifier,
+  studyChapters,
+  revokeAccessToken,
+} from "@/lib/lichessOAuth";
 
 const clientId = process.env.LICHESS_CLIENT_ID as string
 const url = process.env.WEBSITE_URL as string
 
+export const checkLogin = async () => {
+  const token = await lichessCookieManager.getLichessToken()
+
+  if (token) {
+    const response = await user(token)
+    return { username: response.username, loggedIn: true }
+  }
+
+  return { username: '', loggedIn: false }
+}
+
 export const logout = async () => {
-  const cookieStore = cookies()
-  cookieStore.delete('lichessToken')
-  cookieStore.delete('codeVerifier')
+  const token = await lichessCookieManager.getLichessToken() // revoke token
+  if (token) {
+    await revokeAccessToken(token)
+  }
+  await lichessCookieManager.deleteLichessCookies() // delete cookies
+  return true
 }
 
 export const login = async () => {
-  const cookieStore = cookies()
+  const lichessToken = await lichessCookieManager.getLichessToken()
 
-  if (cookieStore.has('lichessToken')) {
+  if (lichessToken) {
     redirect('/chessboard')
+  } else {
+    await lichessCookieManager.setCodeVerifierCookie(verifier)
   }
-
-  cookieStore.set('codeVerifier', verifier)
 
   redirect('https://lichess.org/oauth?' + new URLSearchParams({
     response_type: 'code',
@@ -35,15 +57,12 @@ export const login = async () => {
 }
 
 export const verifyToken = async (code: string) => {
-  const cookieStore = cookies()
+  const token = await lichessCookieManager.getLichessToken()
+  if (token) redirect('/chessboard')
 
-  if (cookieStore.has('lichessToken')) {
-    redirect('/chessboard')
-  }
+  const verifier = await lichessCookieManager.getVerifier()
 
-  const verifier = cookieStore.get('codeVerifier')?.value
-
-  const lichessToken = await getLichessToken({
+  const lichessToken = await accessToken({
     redirectUri: `${url}/callback`,
     clientId,
     authCode: code,
@@ -51,30 +70,43 @@ export const verifyToken = async (code: string) => {
   })
 
   if (lichessToken.access_token) {
-    cookies().set('lichessToken', lichessToken.access_token)
-    return await getLichessUser(lichessToken.access_token)
+    await lichessCookieManager.setLichessTokenCookie(lichessToken.access_token)
+    return await user(lichessToken.access_token)
   }
-
-  // if (!lichessToken.access_token) {
-  //   console.error('Failed getting token')
-  //   redirect('/error')
-  // }
 }
 
 export const getUserStudies = async (username: string) => {
-  const cookieStore = cookies()
-
-  const token = cookieStore.get('lichessToken')?.value
+  const token = await lichessCookieManager.getLichessToken()
 
   if (!token) {
-    // TODO error handling
+    // TODO error handling, 429 etc
     return
   }
 
-  const response = await getLichessUserStudies(token, username)
+  const response = await userStudies(token, username)
   const text = await response.text()
   return text
     .trim()
     .split('\n')
     .map((line) => JSON.parse(line))
+}
+
+export const getChapters = async (studyId: string) => {
+  const token = await lichessCookieManager.getLichessToken()
+
+  if (!token) {
+    // TODO error handling, 429 etc
+    return
+  }
+
+  const response = await studyChapters(token, studyId)
+  const text = await response.text()
+  return text
+    .trim()
+    .split(/\n{3,}/)
+    .map((game) => {
+      const siteHeaderText = game.match(/\[Site\s+"([^"]+)"]/)?.[1];
+      const chapterId = siteHeaderText?.match(/\/([^\/]+)$/)?.[1];
+      return { chapterId, pgn: game}
+    })
 }

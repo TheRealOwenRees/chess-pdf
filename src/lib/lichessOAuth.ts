@@ -35,7 +35,7 @@ export const challenge = createChallenge(verifier)
  * @param codeVerifier
  * @returns ILichessToken
  */
-export const getLichessToken = async ({ redirectUri, clientId, authCode, codeVerifier }: IGetLichessToken): Promise<ILichessToken> => {
+export const accessToken = async ({ redirectUri, clientId, authCode, codeVerifier }: IGetLichessToken): Promise<ILichessToken> => {
   const response = await fetch('https://lichess.org/api/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -51,10 +51,23 @@ export const getLichessToken = async ({ redirectUri, clientId, authCode, codeVer
 }
 
 /**
+ * Revoke the Lichess access token
+ * @param token
+ */
+export const revokeAccessToken = async (token: string) => {
+  return await fetch('https://lichess.org/api/token', {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+/**
  * Get the Lichess User by a valid access token
  * @param token
  */
-export const getLichessUser = async (token: string) => {
+export const user = async (token: string) => {
   const response = await fetch('https://lichess.org/api/account', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -68,8 +81,21 @@ export const getLichessUser = async (token: string) => {
  * @param token
  * @param username
  */
-export const getLichessUserStudies = async (token: string, username: string) => {
+export const userStudies = async (token: string, username: string) => {
   return await fetch(`https://lichess.org/api/study/by/${username}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+/**
+ * Get the Lichess Study Chapters by a valid access token
+ * @param token
+ * @param studyId
+ */
+export const studyChapters = async (token: string, studyId: string) => {
+  return await fetch(`https://lichess.org/api/study/${studyId}.pgn`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
