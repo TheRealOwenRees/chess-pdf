@@ -1,4 +1,4 @@
-import { GameProps } from "@/types";
+import { GameProps, IChapter } from "@/types";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
@@ -15,14 +15,21 @@ export const handleClearGame = (
   gameDispatch({ type: 'CLEAR_GAME' })
 }
 
-// loads PGN from imported game
-export const handleImportPGNFromLichess = (chapter, gameDispatch) => {
-  if (chapter.error) {
-    console.log('Error importing PGN from Lichess', chapter.error)
-  } // TODO fix and handle error
+// loads PGN from imported Lichess study chapter
+export const handleImportPGNFromLichess = (chapter: IChapter, gameDispatch: any) => {
+  console.log(chapter)
 
+ if (!chapter.chapterId) {
+   const errorMessage = JSON.parse(chapter.pgn).error
+   toast.error(`Error importing study chapter from Lichess: ${errorMessage}`, {
+      toastId: 'lichess-import-error'
+   })
+ }
+
+ if (chapter.chapterId) {
   const headers = getHeaders(chapter.pgn)
   gameDispatch({ type: 'SET_GAME', payload: { pgn: chapter.pgn, headers: headers } })
+ }
 }
 
 // loads PGN from uploaded file
