@@ -1,8 +1,10 @@
+// TODO split into smaller components
 "use client";
 
 import { useEffect, useState } from "react";
 
 import { useAtom, useAtomValue } from "jotai";
+import { toast } from "react-toastify";
 
 import LichessLogo from "@/app/components/LichessLogo";
 import { gameAtom, lichessUserAtom } from "@/atoms";
@@ -13,6 +15,16 @@ import {
 } from "@/handlers/pgnHandlers";
 import useLichessOAuth from "@/hooks/useLichessOAuth";
 import { IChapter } from "@/types";
+
+// TODO split into smaller components
+
+// TODO split into smaller components
+
+// TODO split into smaller components
+
+// TODO split into smaller components
+
+// TODO split into smaller components
 
 interface IStudy {
   id: string;
@@ -50,6 +62,7 @@ const GameLoadButtons = () => {
   const handleStudySelection = async (studyId: string) => {
     const response = await lichessAllChapters(studyId);
     setStudyChapters(response);
+    toast.success("Study loaded");
   };
 
   const lichessLoginLogoutButton = lichessUser.loggedIn ? (
@@ -98,6 +111,7 @@ const GameLoadButtons = () => {
     </div>
   );
 
+  // TODO get game name from PGN and use as chapter name
   const chapterSelectionButton = lichessUser.loggedIn &&
     studyChapters &&
     studyChapters.length > 0 && (
