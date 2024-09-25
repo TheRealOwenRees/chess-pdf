@@ -15,6 +15,17 @@ export const handleClearGame = (
   gameDispatch({ type: 'CLEAR_GAME' })
 }
 
+// loads PGN from imported game
+export const handleImportPGNFromLichess = (chapter, gameDispatch) => {
+  if (chapter.error) {
+    console.log('Error importing PGN from Lichess', chapter.error)
+  } // TODO fix and handle error
+
+  const headers = getHeaders(chapter.pgn)
+  gameDispatch({ type: 'SET_GAME', payload: { pgn: chapter.pgn, headers: headers } })
+}
+
+// loads PGN from uploaded file
 export const handleLoadPGN = (
   e: ChangeEvent<HTMLInputElement>,
   gameDispatch: any) => { // TODO fix any type

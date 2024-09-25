@@ -3,7 +3,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { gameAtom, lichessUserAtom } from "@/atoms";
 
-import { handleClearGame, handleLoadPGN } from "@/handlers/pgnHandlers";
+import { handleClearGame, handleImportPGNFromLichess, handleLoadPGN } from "@/handlers/pgnHandlers";
 import LichessLogo from "@/app/components/LichessLogo";
 
 import useLichessOAuth from "@/hooks/useLichessOAuth";
@@ -19,6 +19,7 @@ interface IStudy {
 interface IChapter {
   chapterId: string
   pgn: string
+  error?: string
 }
 
 const GameLoadButtons = () => {
@@ -32,10 +33,7 @@ const GameLoadButtons = () => {
 
   const lichessUser = useAtomValue(lichessUserAtom)
 
-  console.log('user:', lichessUser)
-  console.log('user studies:', userStudies)
-  console.log('study chapters:', studyChapters)
-
+  // load user studies on login
   useEffect(() => {
     if (lichessUser.username && lichessUser.loggedIn) {
       (async () => {
@@ -45,6 +43,7 @@ const GameLoadButtons = () => {
     }
   }, [lichessUser]);
 
+  // load chapters on study selection
   const handleStudySelection = async (studyId: string) => {
     const response = await lichessAllChapters(studyId)
     setStudyChapters(response)
@@ -79,6 +78,7 @@ const GameLoadButtons = () => {
     </div>
   )
 
+  // TODO deal with error raised / private study
   const chapterSelectionButton = lichessUser.loggedIn && studyChapters && studyChapters.length > 0 && (
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-outline btn-primary hover:btn-primary group">
@@ -87,7 +87,7 @@ const GameLoadButtons = () => {
       <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
         {studyChapters.map((chapter, index) => (
           <li key={chapter.chapterId}>
-            <div onClick={() => console.log(chapter.chapterId)}>{index + 1}</div>
+            <div onClick={() => handleImportPGNFromLichess(chapter, gameDispatch)}>{index + 1}</div>
           </li>
         ))}
       </ul>
