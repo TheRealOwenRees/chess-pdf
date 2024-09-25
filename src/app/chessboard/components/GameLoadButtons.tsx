@@ -7,42 +7,55 @@ import { handleClearGame, handleLoadPGN } from "@/handlers/pgnHandlers";
 import LichessLogo from "@/app/components/LichessLogo";
 
 import useLichessOAuth from "@/hooks/useLichessOAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface study {
+interface IStudy {
   id: string
   name: string
   createdAt: string
   updatedAt: string
 }
 
+interface IChapter {
+  chapterId: string
+  pgn: string
+}
+
 const GameLoadButtons = () => {
   const [_, gameDispatch] = useAtom(gameAtom)
-  const { lichessLogin, lichessLogout, lichessGetUserStudies } = useLichessOAuth()
-  const [userStudies, setUserStudies] = useState<study[]>()
+  const { lichessLogin, lichessLogout, lichessGetUserStudies, lichessAllChapters } = useLichessOAuth()
+  const [userStudies, setUserStudies] = useState<IStudy[] | undefined>([])
+  const [studyChapters, setStudyChapters] = useState<IChapter[] | undefined>([])
 
-  console.log(userStudies)
+  // TODO copy eslint / prettier config from asd-penpal project
+  // TODO add a 'Select Chapter/Game' button to select a game to import
 
   const lichessUser = useAtomValue(lichessUserAtom)
 
-  const handleImportLichessStudy = async () => {
-    const studies = await lichessGetUserStudies()
-    setUserStudies(studies)
+  console.log('user:', lichessUser)
+  console.log('user studies:', userStudies)
+  console.log('study chapters:', studyChapters)
+
+  useEffect(() => {
+    if (lichessUser.username && lichessUser.loggedIn) {
+      (async () => {
+        const studies = await lichessGetUserStudies()
+        setUserStudies(studies)
+      })()
+    }
+  }, [lichessUser]);
+
+  const handleStudySelection = async (studyId: string) => {
+    const response = await lichessAllChapters(studyId)
+    setStudyChapters(response)
   }
 
-  const selectStudyButton = userStudies && (
-    <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn m-1">Click</div>
-        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-          {userStudies.map((study) => (
-            <li key={study.id}><a>{study.name}</a></li>
-            ))}
-        </ul>
-    </div>
-  )
-
   const lichessLoginLogoutButton = lichessUser.loggedIn ? (
-    <button className="btn btn-outline btn-primary hover:btn-primary group" onClick={lichessLogout}>
+    <button className="btn btn-outline btn-primary hover:btn-primary group" onClick={async () => {
+      await lichessLogout()
+      setUserStudies([])
+      setStudyChapters([])
+    }}>
       <LichessLogo className="w-5 h-5 fill-primary stroke-primary group-hover:fill-white group-hover:stroke-white" />
       Logout {lichessUser.username}
     </button>
@@ -53,10 +66,32 @@ const GameLoadButtons = () => {
     </button>
   )
 
-  const lichessImportButton = lichessUser.loggedIn && (
-    <button className="btn btn-outline btn-primary hover:btn-primary group" onClick={handleImportLichessStudy}>
-      Import Lichess Study
-    </button>
+  const lichessImportButton = lichessUser.loggedIn && userStudies && (
+    <div className="dropdown">
+      <div tabIndex={0} role="button" className="btn btn-outline btn-primary hover:btn-primary group">
+        Import Lichess Study
+      </div>
+      <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
+        {userStudies.map((study) => (
+          <li key={study.id}><div onClick={() => handleStudySelection(study.id)}>{study.name}</div></li>
+        ))}
+      </ul>
+    </div>
+  )
+
+  const chapterSelectionButton = lichessUser.loggedIn && studyChapters && studyChapters.length > 0 && (
+    <div className="dropdown">
+      <div tabIndex={0} role="button" className="btn btn-outline btn-primary hover:btn-primary group">
+        Select Chapter/Game
+      </div>
+      <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
+        {studyChapters.map((chapter, index) => (
+          <li key={chapter.chapterId}>
+            <div onClick={() => console.log(chapter.chapterId)}>{index + 1}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 
   return (
@@ -64,7 +99,7 @@ const GameLoadButtons = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         {lichessLoginLogoutButton}
         {lichessImportButton}
-        {userStudies && userStudies.length > 0 && selectStudyButton}
+        {chapterSelectionButton}
       </div>
       <p className="text-center">OR</p>
       <div className="flex items-center flex-wrap justify-between w-full mb-4 gap-4">

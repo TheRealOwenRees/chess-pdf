@@ -27,14 +27,14 @@ const useLichessOAuth = () => {
     return await getUserStudies(lichessUser.username)
   }
 
-  const lichessAllChapters = async () => {
-    // const chapters = await getChapters('6OwMP5bg') // TODO private study not readable, look into this
-    const chapters = await getChapters("vtJWgYZh")
+  const lichessAllChapters = async (studyId: string) => {
+    // TODO private study not readable, look into this
+    const chapters = await getChapters(studyId)
     console.log(chapters)
     return chapters
   }
 
-  return { lichessLogin, lichessLogout, lichessGetUserStudies, lichessLoggedInCheck };
+  return { lichessLogin, lichessLogout, lichessGetUserStudies, lichessAllChapters, lichessLoggedInCheck };
 }
 
 export default useLichessOAuth;
