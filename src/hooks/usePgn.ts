@@ -20,15 +20,6 @@ const usePgn = () => {
   };
 
   const importPgnFromLichess = (chapter: IChapter) => {
-    // TODO fix error handling, should be from backend response
-    if (!chapter.chapterId) {
-      const errorMessage = JSON.parse(chapter.pgn).error;
-      console.error(errorMessage);
-      toast.error("This study does not allow exporting of it's games!", {
-        toastId: "lichess-import-error",
-      });
-    }
-
     if (chapter.chapterId) {
       const headers = getHeaders(chapter.pgn);
       gameDispatch({
