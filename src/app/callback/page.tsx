@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { verifyToken } from "@/server/actions/lichess";
-import { lichessUserAtom } from "@/atoms";
+
 import { useSetAtom } from "jotai";
+import { useSearchParams } from "next/navigation";
+
+import { lichessUserAtom } from "@/atoms";
+import { verifyToken } from "@/server/actions/lichess";
 
 const Callback = () => {
-  const params = useSearchParams()
-  const code = params.get('code')
-  const setLichessUser = useSetAtom(lichessUserAtom)
+  const params = useSearchParams();
+  const code = params.get("code");
+  const setLichessUser = useSetAtom(lichessUserAtom);
 
   useEffect(() => {
     (async function tokenVerification() {
       if (code) {
-        const response =  await verifyToken(code)
-        if (response.username) {
-          setLichessUser({ username: response.username, loggedIn: true })
+        const response = await verifyToken(code);
+        if (response) {
+          setLichessUser({ username: response.username, loggedIn: true });
         }
       }
-    }())
+    })();
   }, [code]);
 
-  return (
-    <div>Verifying...</div>
-  )
-}
+  return <div>Verifying...</div>;
+};
 
 export default Callback;

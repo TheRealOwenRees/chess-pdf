@@ -35,8 +35,8 @@ const usePgn = () => {
         type: "SET_GAME",
         payload: { pgn: chapter.pgn, headers: headers },
       });
-      toast.success("Game imported successfully", {
-        toastId: "lichess-import-success",
+      toast.success(`${chapter.name} imported successfully`, {
+        toastId: `${chapter.chapterId}-lichess-import-success`,
       });
     }
   };

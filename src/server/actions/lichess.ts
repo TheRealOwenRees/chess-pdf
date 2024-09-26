@@ -14,6 +14,7 @@ import {
   userStudies,
   verifier,
 } from "@/lib/lichessOAuth";
+import { IChapter } from "@/types";
 
 const clientId = process.env.LICHESS_CLIENT_ID as string;
 const url = process.env.WEBSITE_URL as string;
@@ -111,6 +112,7 @@ export const getUserStudies = async (username: string) => {
 
   const response = await userStudies(token, username);
   const text = await response.text();
+
   return text
     .trim()
     .split("\n")
@@ -120,19 +122,39 @@ export const getUserStudies = async (username: string) => {
 export const getChapters = async (studyId: string) => {
   const token = await getLichessToken();
 
+  // TODO error handling, 429 etc
+
   if (!token) {
-    // TODO error handling, 429 etc
-    return;
+    return {
+      error: "You are not logged in!",
+      pgn: "",
+      name: "",
+      chapterId: "",
+    };
   }
 
   const response = await studyChapters(token, studyId);
+
+  // handle forbidden / non-exportable study
+  if (response.status === 403) {
+    return {
+      error: "This study does not allow exporting of it's games!",
+      pgn: "",
+      name: "",
+      chapterId: "",
+    };
+  }
+
   const text = await response.text();
+
   return text
     .trim()
     .split(/\n{3,}/)
     .map((game) => {
+      const eventHeaderText = game.match(/\[Event\s+"([^"]+)"]/)?.[1];
+      const eventName = eventHeaderText?.match(/(?<=:\s+)[^"]+/)?.[0];
       const siteHeaderText = game.match(/\[Site\s+"([^"]+)"]/)?.[1];
       const chapterId = siteHeaderText?.match(/\/([^\/]+)$/)?.[1];
-      return { chapterId, pgn: game };
+      return { chapterId, pgn: game, name: eventName };
     });
 };

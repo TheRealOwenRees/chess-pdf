@@ -2,16 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { toast } from "react-toastify";
 
-import LichessLogo from "@/app/components/LichessLogo";
-import { gameAtom, lichessUserAtom } from "@/atoms";
+import LichessButton from "@/app/chessboard/components/LichessButton";
+import { lichessUserAtom } from "@/atoms";
 import useLichessOAuth from "@/hooks/useLichessOAuth";
 import usePgn from "@/hooks/usePgn";
 import { IChapter } from "@/types";
-
-// TODO split into smaller components
 
 interface IStudy {
   id: string;
@@ -21,7 +19,10 @@ interface IStudy {
 }
 
 const GameLoadButtons = () => {
+  const lichessUser = useAtomValue(lichessUserAtom);
   const { clearPgn, importPgnFromLichess, loadPgn } = usePgn();
+  const [userStudies, setUserStudies] = useState<IStudy[] | undefined>([]);
+  const [studyChapters, setStudyChapters] = useState<IChapter[]>([]);
 
   const {
     lichessLogin,
@@ -29,12 +30,6 @@ const GameLoadButtons = () => {
     lichessGetUserStudies,
     lichessAllChapters,
   } = useLichessOAuth();
-  const [userStudies, setUserStudies] = useState<IStudy[] | undefined>([]);
-  const [studyChapters, setStudyChapters] = useState<IChapter[] | undefined>(
-    [],
-  );
-
-  const lichessUser = useAtomValue(lichessUserAtom);
 
   // load user studies on login
   useEffect(() => {
@@ -49,30 +44,31 @@ const GameLoadButtons = () => {
   // load chapters on study selection
   const handleStudySelection = async (studyId: string) => {
     const response = await lichessAllChapters(studyId);
-    setStudyChapters(response);
-    toast.success("Study loaded");
+
+    if (response.error) {
+      // TODO fix
+      setStudyChapters([]);
+      toast.error("This study does not allow exporting of it's games!");
+      return;
+    }
+
+    clearPgn();
+    setStudyChapters(response); // TODO fix
+    toast.success(`Study loaded`);
   };
 
+  // lichess login/logout buttons
   const lichessLoginLogoutButton = lichessUser.loggedIn ? (
-    <button
-      className="group btn btn-outline btn-primary hover:btn-primary"
-      onClick={async () => {
+    <LichessButton
+      label={`Logout ${lichessUser.username}`}
+      onClickHandler={async () => {
         await lichessLogout();
         setUserStudies([]);
         setStudyChapters([]);
       }}
-    >
-      <LichessLogo className="h-5 w-5 fill-primary stroke-primary group-hover:fill-white group-hover:stroke-white" />
-      Logout {lichessUser.username}
-    </button>
+    />
   ) : (
-    <button
-      className="group btn btn-outline btn-primary hover:btn-primary"
-      onClick={lichessLogin}
-    >
-      <LichessLogo className="h-5 w-5 fill-primary stroke-primary group-hover:fill-white group-hover:stroke-white" />
-      Log into Lichess.org
-    </button>
+    <LichessButton label="Log into Lichess.org" onClickHandler={lichessLogin} />
   );
 
   const lichessImportButton = lichessUser.loggedIn && userStudies && (
@@ -86,7 +82,7 @@ const GameLoadButtons = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu dropdown-content z-10 w-52 rounded-box bg-base-100 p-2 shadow"
+        className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
       >
         {userStudies.map((study) => (
           <li key={study.id}>
@@ -99,7 +95,6 @@ const GameLoadButtons = () => {
     </div>
   );
 
-  // TODO get game name from PGN and use as chapter name
   const chapterSelectionButton = lichessUser.loggedIn &&
     studyChapters &&
     studyChapters.length > 0 && (
@@ -113,12 +108,12 @@ const GameLoadButtons = () => {
         </div>
         <ul
           tabIndex={0}
-          className="menu dropdown-content z-10 w-52 rounded-box bg-base-100 p-2 shadow"
+          className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
         >
-          {studyChapters.map((chapter, index) => (
+          {studyChapters.map((chapter) => (
             <li key={chapter.chapterId}>
               <div onClick={() => importPgnFromLichess(chapter)}>
-                {index + 1}
+                {chapter.name}
               </div>
             </li>
           ))}
@@ -130,6 +125,8 @@ const GameLoadButtons = () => {
     <div className="flex w-full flex-col justify-between gap-4">
       <div className="flex flex-wrap items-center justify-between gap-4">
         {lichessLoginLogoutButton}
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-4">
         {lichessImportButton}
         {chapterSelectionButton}
       </div>

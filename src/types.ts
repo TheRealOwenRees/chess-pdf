@@ -1,8 +1,10 @@
 export type GamePGN = string | undefined;
 
 export interface IChapter {
-  chapterId?: string;
+  chapterId: string;
   pgn: string;
+  name: string;
+  error?: string;
 }
 
 export interface Header {
