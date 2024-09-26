@@ -1,4 +1,3 @@
-// TODO split into smaller components
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,21 +7,9 @@ import { toast } from "react-toastify";
 
 import LichessLogo from "@/app/components/LichessLogo";
 import { gameAtom, lichessUserAtom } from "@/atoms";
-import {
-  handleClearGame,
-  handleImportPGNFromLichess,
-  handleLoadPGN,
-} from "@/handlers/pgnHandlers";
 import useLichessOAuth from "@/hooks/useLichessOAuth";
+import usePgn from "@/hooks/usePgn";
 import { IChapter } from "@/types";
-
-// TODO split into smaller components
-
-// TODO split into smaller components
-
-// TODO split into smaller components
-
-// TODO split into smaller components
 
 // TODO split into smaller components
 
@@ -34,7 +21,8 @@ interface IStudy {
 }
 
 const GameLoadButtons = () => {
-  const [_, gameDispatch] = useAtom(gameAtom); // TODO move to handler? First change handlers to hooks
+  const { clearPgn, importPgnFromLichess, loadPgn } = usePgn();
+
   const {
     lichessLogin,
     lichessLogout,
@@ -129,11 +117,7 @@ const GameLoadButtons = () => {
         >
           {studyChapters.map((chapter, index) => (
             <li key={chapter.chapterId}>
-              <div
-                onClick={() =>
-                  handleImportPGNFromLichess(chapter, gameDispatch)
-                }
-              >
+              <div onClick={() => importPgnFromLichess(chapter)}>
                 {index + 1}
               </div>
             </li>
@@ -155,12 +139,9 @@ const GameLoadButtons = () => {
           type="file"
           id="fileInput"
           className="file-input file-input-bordered file-input-primary file-input-md max-w-xs"
-          onChange={(e) => handleLoadPGN(e, gameDispatch)}
+          onChange={loadPgn}
         />
-        <button
-          className="btn btn-primary w-full md:w-1/4"
-          onClick={(e) => handleClearGame(e, gameDispatch)}
-        >
+        <button className="btn btn-primary w-full md:w-1/4" onClick={clearPgn}>
           Clear Game
         </button>
       </div>

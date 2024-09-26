@@ -91,13 +91,6 @@ export interface Message {
   message: string;
 }
 
-export interface MessageAtomState {
-  type: string;
-  message: string;
-  isSending: boolean;
-  isSuccess: boolean;
-}
-
 export type GameAction =
   | { type: "SET_GAME"; payload: { pgn: string; headers: Header } }
   | { type: "CLEAR_GAME" }
