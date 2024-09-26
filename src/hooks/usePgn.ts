@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
 import { logError } from "@/server/actions/errorLogging";
-import { IChapter } from "@/types";
+import { Header, IChapter } from "@/types";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
@@ -126,7 +126,26 @@ const usePgn = () => {
     }
   };
 
-  return { clearPgn, importPgnFromLichess, loadPgn, savePgn, saveAsPdf };
+  const updateHeaders = (
+    e: ChangeEvent<HTMLInputElement>,
+    fieldName: string,
+  ) => {
+    e.preventDefault();
+    const updatedHeaders = {
+      ...gameState.headers,
+      [fieldName]: e.target.value,
+    } as Header;
+    gameDispatch({ type: "SET_HEADERS", payload: updatedHeaders });
+  };
+
+  return {
+    clearPgn,
+    importPgnFromLichess,
+    loadPgn,
+    savePgn,
+    saveAsPdf,
+    updateHeaders,
+  };
 };
 
 export default usePgn;
