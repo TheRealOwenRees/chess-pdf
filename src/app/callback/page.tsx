@@ -4,7 +4,7 @@ import CallBack from "@/app/callback/CallBack";
 
 const CallbackPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Verifying...</div>}>
       <CallBack />
     </Suspense>
   );

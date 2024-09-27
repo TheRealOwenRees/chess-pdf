@@ -19,7 +19,6 @@ const Callback = () => {
         const response = await verifyToken(code);
         if (response) {
           setLichessUser({ username: response.username, loggedIn: true });
-          redirect("/chessboard");
         }
       }
     })();
