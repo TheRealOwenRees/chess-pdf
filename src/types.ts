@@ -7,6 +7,8 @@ export interface IChapter {
   error?: string;
 }
 
+export type ChapterResponse = IChapter[] | { error: string };
+
 export interface Header {
   event: string;
   site: string;

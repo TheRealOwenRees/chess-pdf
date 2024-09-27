@@ -8,7 +8,6 @@ import {
   login,
   logout,
 } from "@/server/actions/lichess";
-import { IChapter } from "@/types";
 
 const useLichessOAuth = () => {
   const [lichessUser, setLichessUser] = useAtom(lichessUserAtom);

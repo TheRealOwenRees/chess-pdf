@@ -45,15 +45,14 @@ const GameLoadButtons = () => {
   const handleStudySelection = async (studyId: string) => {
     const response = await lichessAllChapters(studyId);
 
-    if (response.error) {
-      // TODO fix
+    if ("error" in response) {
       setStudyChapters([]);
       toast.error("This study does not allow exporting of it's games!");
       return;
     }
 
     clearPgn();
-    setStudyChapters(response); // TODO fix
+    setStudyChapters(response);
     toast.success(`Study loaded`);
   };
 

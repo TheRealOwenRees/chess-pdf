@@ -1,7 +1,6 @@
 "use server";
 
 // TODO add timeout of 60 seconds if response is 429
-// TODO deal with 403 Forbidden error
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -14,7 +13,7 @@ import {
   userStudies,
   verifier,
 } from "@/lib/lichessOAuth";
-import { IChapter } from "@/types";
+import { ChapterResponse, IChapter } from "@/types";
 
 const clientId = process.env.LICHESS_CLIENT_ID as string;
 const url = process.env.WEBSITE_URL as string;
@@ -106,7 +105,6 @@ export const getUserStudies = async (username: string) => {
   const token = await getLichessToken();
 
   if (!token) {
-    // TODO error handling, 429 etc
     return;
   }
 
@@ -119,17 +117,14 @@ export const getUserStudies = async (username: string) => {
     .map((line) => JSON.parse(line));
 };
 
-export const getChapters = async (studyId: string) => {
+export const getChapters = async (
+  studyId: string,
+): Promise<ChapterResponse> => {
   const token = await getLichessToken();
-
-  // TODO error handling, 429 etc
 
   if (!token) {
     return {
       error: "You are not logged in!",
-      pgn: "",
-      name: "",
-      chapterId: "",
     };
   }
 
@@ -139,9 +134,6 @@ export const getChapters = async (studyId: string) => {
   if (response.status === 403) {
     return {
       error: "This study does not allow exporting of it's games!",
-      pgn: "",
-      name: "",
-      chapterId: "",
     };
   }
 
@@ -152,9 +144,9 @@ export const getChapters = async (studyId: string) => {
     .split(/\n{3,}/)
     .map((game) => {
       const eventHeaderText = game.match(/\[Event\s+"([^"]+)"]/)?.[1];
-      const eventName = eventHeaderText?.match(/(?<=:\s+)[^"]+/)?.[0];
+      const eventName = eventHeaderText?.match(/(?<=:\s+)[^"]+/)?.[0] || "";
       const siteHeaderText = game.match(/\[Site\s+"([^"]+)"]/)?.[1];
-      const chapterId = siteHeaderText?.match(/\/([^\/]+)$/)?.[1];
+      const chapterId = siteHeaderText?.match(/\/([^\/]+)$/)?.[1] || "";
       return { chapterId, pgn: game, name: eventName };
     });
 };
