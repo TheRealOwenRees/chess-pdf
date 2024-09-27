@@ -1,29 +1,31 @@
-import { useAtom } from "jotai";
-import { gameAtom } from "@/atoms";
-
 import { useState } from "react";
-import { handleSavePDF, handleSavePGN } from "@/handlers/pgnHandlers";
-import { trpc } from "@/utils/trpc";
+
+import { useAtom } from "jotai";
+
+import { gameAtom } from "@/atoms";
+import usePgn from "@/hooks/usePgn";
 
 const GameSaveButtons = () => {
   const [gameState] = useAtom(gameAtom);
-
+  const { savePgn, saveAsPdf } = usePgn();
 
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const savePDFButtonText = generatingPDF ? "Generating..." : "Save as PDF";
 
-  const errorContact = trpc.discordErrorLog.useMutation();
-
   return (
-    <div className="flex flex-col md:flex-row w-full gap-4 justify-between mt-8 mb-4">
-      <button disabled={!gameState.pgn}
-              className="btn btn-primary btn-outline"
-              onClick={(e) => handleSavePGN(e, gameState)}>
+    <div className="mb-4 mt-8 flex w-full flex-col justify-between gap-4 md:flex-row">
+      <button
+        disabled={!gameState.pgn}
+        className="btn btn-outline btn-primary"
+        onClick={savePgn}
+      >
         Save PGN
       </button>
-      <button disabled={!gameState.pgn && !generatingPDF}
-              className="btn btn-primary btn-outline"
-              onClick={(e) => handleSavePDF(e, gameState, setGeneratingPDF, errorContact)}>
+      <button
+        disabled={!gameState.pgn && !generatingPDF}
+        className="btn btn-outline btn-primary"
+        onClick={() => saveAsPdf(setGeneratingPDF)}
+      >
         {savePDFButtonText}
       </button>
     </div>
