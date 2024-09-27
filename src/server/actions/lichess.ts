@@ -15,8 +15,15 @@ import {
 } from "@/lib/lichessOAuth";
 import { ChapterResponse } from "@/types";
 
+const getWebsiteUrl = () => {
+  if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return process.env.WEBSITE_URL;
+};
+
 const clientId = process.env.LICHESS_CLIENT_ID as string;
-const url = process.env.WEBSITE_URL as string;
+const url = getWebsiteUrl();
 
 const setCodeVerifierCookie = async (verifier: string) => {
   cookies().set("codeVerifier", verifier);
