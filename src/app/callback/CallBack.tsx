@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { useSetAtom } from "jotai";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { lichessUserAtom } from "@/atoms";
 import { verifyToken } from "@/server/actions/lichess";
