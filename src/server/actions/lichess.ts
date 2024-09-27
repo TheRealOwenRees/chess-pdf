@@ -13,7 +13,7 @@ import {
   userStudies,
   verifier,
 } from "@/lib/lichessOAuth";
-import { ChapterResponse, IChapter } from "@/types";
+import { ChapterResponse } from "@/types";
 
 const clientId = process.env.LICHESS_CLIENT_ID as string;
 const url = process.env.WEBSITE_URL as string;
@@ -59,7 +59,6 @@ export const logout = async () => {
   return true;
 };
 
-// TODO look at moving into lichessOAuth.ts
 export const login = async () => {
   const lichessToken = await getLichessToken();
 

@@ -99,7 +99,8 @@ const usePgn = () => {
           diagramClock: gameState.diagramClock,
         }),
       });
-      downloadPDF(await response.blob()); // TODO add response here? Make sure it opened before setting message
+
+      downloadPDF(await response.blob());
       toast.success("PDF generated successfully", {
         toastId: "pdf-success",
       });

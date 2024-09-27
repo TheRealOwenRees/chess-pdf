@@ -41,6 +41,13 @@ const GameLoadButtons = () => {
     }
   }, [lichessUser]);
 
+  const handleDropdownClick = () => {
+    const elem = document.activeElement;
+    if (elem && elem instanceof HTMLElement) {
+      elem.blur();
+    }
+  };
+
   // load chapters on study selection
   const handleStudySelection = async (studyId: string) => {
     const response = await lichessAllChapters(studyId);
@@ -84,7 +91,7 @@ const GameLoadButtons = () => {
         className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
       >
         {userStudies.map((study) => (
-          <li key={study.id}>
+          <li key={study.id} onClick={handleDropdownClick}>
             <div onClick={() => handleStudySelection(study.id)}>
               {study.name}
             </div>
@@ -110,7 +117,7 @@ const GameLoadButtons = () => {
           className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
         >
           {studyChapters.map((chapter) => (
-            <li key={chapter.chapterId}>
+            <li key={chapter.chapterId} onClick={handleDropdownClick}>
               <div onClick={() => importPgnFromLichess(chapter)}>
                 {chapter.name}
               </div>
