@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { useSetAtom } from "jotai";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { lichessUserAtom } from "@/atoms";
 import { verifyToken } from "@/server/actions/lichess";
@@ -19,6 +19,7 @@ const Callback = () => {
         const response = await verifyToken(code);
         if (response) {
           setLichessUser({ username: response.username, loggedIn: true });
+          redirect("/chessboard");
         }
       }
     })();
