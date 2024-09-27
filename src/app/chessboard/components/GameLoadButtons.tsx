@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { toast } from "react-toastify";
 
+import DropdownButton from "@/app/chessboard/components/DropdownButton";
 import LichessButton from "@/app/chessboard/components/LichessButton";
 import { lichessUserAtom } from "@/atoms";
 import useLichessOAuth from "@/hooks/useLichessOAuth";
@@ -63,7 +64,6 @@ const GameLoadButtons = () => {
     toast.success(`Study loaded`);
   };
 
-  // lichess login/logout buttons
   const lichessLoginLogoutButton = lichessUser.loggedIn ? (
     <LichessButton
       label={`Logout ${lichessUser.username}`}
@@ -78,53 +78,27 @@ const GameLoadButtons = () => {
   );
 
   const lichessImportButton = lichessUser.loggedIn && userStudies && (
-    <div className="dropdown">
-      <div
-        tabIndex={0}
-        role="button"
-        className="group btn btn-outline btn-primary hover:btn-primary"
-      >
-        Import Lichess Study
-      </div>
-      <ul
-        tabIndex={0}
-        className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
-      >
-        {userStudies.map((study) => (
-          <li key={study.id} onClick={handleDropdownClick}>
-            <div onClick={() => handleStudySelection(study.id)}>
-              {study.name}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <DropdownButton>
+      {userStudies.map((study) => (
+        <li key={study.id} onClick={handleDropdownClick}>
+          <div onClick={() => handleStudySelection(study.id)}>{study.name}</div>
+        </li>
+      ))}
+    </DropdownButton>
   );
 
   const chapterSelectionButton = lichessUser.loggedIn &&
     studyChapters &&
     studyChapters.length > 0 && (
-      <div className="dropdown">
-        <div
-          tabIndex={0}
-          role="button"
-          className="group btn btn-outline btn-primary hover:btn-primary"
-        >
-          Select Chapter/Game
-        </div>
-        <ul
-          tabIndex={0}
-          className="menu dropdown-content z-10 w-52 rounded-box border-[1px] border-primary bg-base-100 p-2 shadow"
-        >
-          {studyChapters.map((chapter) => (
-            <li key={chapter.chapterId} onClick={handleDropdownClick}>
-              <div onClick={() => importPgnFromLichess(chapter)}>
-                {chapter.name}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <DropdownButton>
+        {studyChapters.map((chapter) => (
+          <li key={chapter.chapterId} onClick={handleDropdownClick}>
+            <div onClick={() => importPgnFromLichess(chapter)}>
+              {chapter.name}
+            </div>
+          </li>
+        ))}
+      </DropdownButton>
     );
 
   return (
