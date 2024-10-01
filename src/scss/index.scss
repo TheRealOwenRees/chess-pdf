@@ -1,4 +1,10 @@
+@use 'helpers/variables' as var;
 @import 'components/example-pdfs';
 @import 'components/lpv';
 @import 'components/loading-spinner';
 @import 'components/buttons';
+@import 'components/toasts';
+
+:root {
+  --toastify-color-success: var.$primary-color;
+}

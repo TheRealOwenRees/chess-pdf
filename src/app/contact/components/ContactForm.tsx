@@ -1,7 +1,6 @@
 "use client";
 
 import { ContactFormValues } from "@/types";
-import { trpc } from "@/utils/trpc";
 import { useForm, SubmitHandler } from "react-hook-form";
 import TextField from "@/app/contact/components/TextField";
 import { handleContactSubmit } from "@/handlers/contactHandlers";
@@ -9,7 +8,6 @@ import { useState } from "react";
 
 const ContactForm = () => {
   const [isSending, setIsSending] = useState(false);
-  const contact = trpc.discordContact.useMutation()
 
   const {
     register,
@@ -34,7 +32,7 @@ const ContactForm = () => {
   )
 
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
-    await handleContactSubmit(data, reset, contact, setIsSending);
+    await handleContactSubmit(data, reset, setIsSending);
   };
 
   return (
