@@ -17,7 +17,6 @@ import { ChapterResponse } from "@/types";
 
 const getWebsiteUrl = () => {
   if (process.env.VERCEL_ENV === "preview") {
-    console.log("Vercel preview URL", process.env.VERCEL_URL);
     return `https://${process.env.VERCEL_URL}`;
   }
   return process.env.WEBSITE_URL;
