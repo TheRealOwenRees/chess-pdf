@@ -24,7 +24,11 @@ const Callback = () => {
     })();
   }, [code, setLichessUser]);
 
-  lichessUser.loggedIn && redirect("/chessboard");
+  useEffect(() => {
+    process.env.VERCEL_ENV !== "development" &&
+      lichessUser.loggedIn &&
+      redirect("/chessboard");
+  }, [lichessUser]);
 
   return <div>Verifying...</div>;
 };
