@@ -1,6 +1,12 @@
 import { ReactNode } from "react";
 
-const DropdownButton = ({ children }: { children: ReactNode }) => {
+const DropdownButton = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => {
   return (
     <div className="dropdown">
       <div
@@ -8,7 +14,7 @@ const DropdownButton = ({ children }: { children: ReactNode }) => {
         role="button"
         className="group btn btn-outline btn-primary hover:btn-primary"
       >
-        Import Lichess Study
+        {label}
       </div>
       <ul
         tabIndex={0}
