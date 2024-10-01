@@ -78,7 +78,7 @@ const GameLoadButtons = () => {
   );
 
   const lichessImportButton = lichessUser.loggedIn && userStudies && (
-    <DropdownButton>
+    <DropdownButton label={"Import Lichess Study"}>
       {userStudies.map((study) => (
         <li key={study.id} onClick={handleDropdownClick}>
           <div onClick={() => handleStudySelection(study.id)}>{study.name}</div>
@@ -90,7 +90,7 @@ const GameLoadButtons = () => {
   const chapterSelectionButton = lichessUser.loggedIn &&
     studyChapters &&
     studyChapters.length > 0 && (
-      <DropdownButton>
+      <DropdownButton label={"Import Chapter/Game"}>
         {studyChapters.map((chapter) => (
           <li key={chapter.chapterId} onClick={handleDropdownClick}>
             <div onClick={() => importPgnFromLichess(chapter)}>
