@@ -10,11 +10,11 @@ const config: Config = {
     logs: false,
     themes: [
       {
-        customLightTheme: {
+        lightTheme: {
           primary: "#6f884d",
           "primary-content": "#ffffff",
           secondary: "#B8B666",
-          "secondary-content": "#ffffff",
+          "secondary-content": "#9fae8f",
           accent: "#00d7c0",
           "accent-content": "#00110e",
           neutral: "#4B5563",
