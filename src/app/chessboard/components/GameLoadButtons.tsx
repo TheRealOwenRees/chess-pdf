@@ -106,11 +106,22 @@ const GameLoadButtons = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         {lichessLoginLogoutButton}
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {lichessImportButton}
-        {chapterSelectionButton}
+
+      {lichessImportButton && (
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          {lichessImportButton}
+          {chapterSelectionButton}
+        </div>
+      )}
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t"></span>
+        </div>
+        <div className="relative flex justify-center text-gray-500">
+          <span className="bg-white px-2">OR</span>
+        </div>
       </div>
-      <p className="text-center">OR</p>
       <div className="mb-4 flex w-full flex-wrap items-center justify-between gap-4">
         <input
           type="file"
