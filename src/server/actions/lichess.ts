@@ -143,6 +143,13 @@ export const getChapters = async (
     };
   }
 
+  // handle study not found, usually due to incorrect import url
+  if (response.status === 404) {
+    return {
+      error: "Study not found!",
+    };
+  }
+
   const text = await response.text();
 
   return text
