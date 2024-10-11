@@ -61,6 +61,7 @@ const GameLoadButtons = () => {
           type="text"
           placeholder="Enter Lichess Study URL"
           className="input input-bordered w-full max-w-xs pr-10"
+          name="lichessStudyUrl"
           ref={studyUrlRef}
         />
         <ClearInputIcon

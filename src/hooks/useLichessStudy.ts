@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { useAtom, useAtomValue } from "jotai/index";
 import { toast } from "react-toastify";
@@ -90,12 +90,17 @@ const useLichessStudy = () => {
   };
 
   // parse study id from url or input, then load chapters
-  const importStudyFromUrl = async (e) => {
+  const importStudyFromUrl = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let studyId;
-    const input = e.target[0].value;
-    studyId = input.includes("/") ? input.split("/").pop() : input;
-    await studySelection(studyId);
+
+    let studyId: string;
+    const form = new FormData(e.currentTarget);
+    const input = form.get("lichessStudyUrl") as string;
+
+    if (input) {
+      studyId = input.includes("/") ? input.split("/").pop()! : input;
+      await studySelection(studyId);
+    }
   };
 
   return {
