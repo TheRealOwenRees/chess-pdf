@@ -139,8 +139,11 @@ const GameLoadButtons = () => {
     studyChapters &&
     studyChapters.length > 0 && (
       <DropdownButton label={"Import Chapter/Game"}>
-        {studyChapters.map((chapter) => (
-          <li key={chapter.chapterId} onClick={handleDropdownClick}>
+        {studyChapters.map((chapter, index) => (
+          <li
+            key={`${chapter.chapterId}-${index}`}
+            onClick={handleDropdownClick}
+          >
             <div onClick={() => importPgn(chapter)}>{chapter.name}</div>
           </li>
         ))}
