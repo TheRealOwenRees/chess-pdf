@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 import { useAtomValue } from "jotai";
+import { toast } from "react-toastify";
 
 import DropdownButton from "@/app/chessboard/components/DropdownButton";
 import LichessButton from "@/app/chessboard/components/LichessButton";
@@ -18,6 +19,8 @@ const GameLoadButtons = () => {
   const lichessUser = useAtomValue(lichessUserAtom);
   const { clearPgn, loadPgn } = usePgn();
   const { lichessLogin, lichessLogout } = useLichessOAuth();
+  const [isImportingLink, setIsImportingLink] = useState(false);
+  const [isImportingStudy, setIsImportingStudy] = useState(false);
 
   const {
     importPgn,
@@ -40,7 +43,34 @@ const GameLoadButtons = () => {
     }
   };
 
-  // TODO place buttons in parent 'Lichess' component
+  const handleStudyLinkSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsImportingLink(true);
+    try {
+      await importStudyFromUrl(e);
+    } catch (error) {
+      toast.error("Error importing study", {
+        toastId: "lichess-import-error",
+      });
+    } finally {
+      setIsImportingLink(false);
+    }
+  };
+
+  const handleStudyImportButtonSubmit = async (studyId: string) => {
+    setIsImportingStudy(true);
+
+    try {
+      await studySelection(studyId);
+    } catch (error) {
+      toast.error("Error importing study", {
+        toastId: "lichess-import-error",
+      });
+    } finally {
+      setIsImportingStudy(false);
+    }
+  };
+
   const lichessLoginLogoutButton = lichessUser.loggedIn ? (
     <LichessButton
       label={`Logout ${lichessUser.username}`}
@@ -55,7 +85,7 @@ const GameLoadButtons = () => {
   );
 
   const lichessStudyLinkInput = lichessUser.loggedIn && (
-    <form className="relative flex gap-1" onSubmit={importStudyFromUrl}>
+    <form className="relative flex gap-1" onSubmit={handleStudyLinkSubmit}>
       <div className="relative">
         <input
           type="text"
@@ -69,14 +99,21 @@ const GameLoadButtons = () => {
           className="right-0"
         />
       </div>
-      <button type="submit" className="btn btn-primary px-5">
-        Import
+      <button
+        type="submit"
+        className="btn btn-primary px-5"
+        disabled={isImportingLink}
+      >
+        {isImportingLink ? "Importing..." : "Import Study"}
       </button>
     </form>
   );
 
   const lichessImportButton = lichessUser.loggedIn && userStudies && (
-    <DropdownButton label={"Select Lichess Study"}>
+    <DropdownButton
+      label={isImportingStudy ? "Importing..." : "Select Lichess Study"}
+      loading={isImportingStudy}
+    >
       <div className="relative">
         <SearchIcon />
         <input
@@ -89,7 +126,9 @@ const GameLoadButtons = () => {
         <ClearInputIcon onClick={clearStudySearch} />
         {filteredUserStudies?.map((study) => (
           <li key={study.id} onClick={handleDropdownClick}>
-            <div onClick={() => studySelection(study.id)}>{study.name}</div>
+            <div onClick={() => handleStudyImportButtonSubmit(study.id)}>
+              {study.name}
+            </div>
           </li>
         ))}
       </div>
