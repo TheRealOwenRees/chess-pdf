@@ -42,8 +42,10 @@ const Callback = () => {
   }, [code, setLichessUser]);
 
   useEffect(() => {
-    (lichessUser.loggedIn || error) && redirect("/chessboard");
-  }, [lichessUser, error]);
+    process.env.VERCEL_ENV !== "development" &&
+      lichessUser.loggedIn &&
+      redirect("/chessboard");
+  }, [lichessUser]);
 
   return <div>Verifying...</div>;
 };
