@@ -2,9 +2,11 @@ import { ReactNode } from "react";
 
 const DropdownButton = ({
   label,
+  loading,
   children,
 }: {
   label: string;
+  loading?: boolean;
   children: ReactNode;
 }) => {
   return (
@@ -12,7 +14,7 @@ const DropdownButton = ({
       <div
         tabIndex={0}
         role="button"
-        className="group btn btn-outline btn-primary hover:btn-primary"
+        className={`group btn btn-outline btn-primary hover:btn-primary ${loading ? "pointer-events-none opacity-50" : ""}`}
       >
         {label}
       </div>

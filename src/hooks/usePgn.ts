@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
 import { logError } from "@/server/actions/errorLogging";
-import { Header, IChapter } from "@/types";
+import { Header } from "@/types";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
 import { downloadString } from "@/utils/stringUtils";
@@ -17,19 +17,6 @@ const usePgn = () => {
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     fileInput.value = "";
     gameDispatch({ type: "CLEAR_GAME" });
-  };
-
-  const importPgnFromLichess = (chapter: IChapter) => {
-    if (chapter.chapterId) {
-      const headers = getHeaders(chapter.pgn);
-      gameDispatch({
-        type: "SET_GAME",
-        payload: { pgn: chapter.pgn, headers: headers },
-      });
-      toast.success(`${chapter.name} imported successfully`, {
-        toastId: `${chapter.chapterId}-lichess-import-success`,
-      });
-    }
   };
 
   const loadPgn = (e: ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +119,6 @@ const usePgn = () => {
 
   return {
     clearPgn,
-    importPgnFromLichess,
     loadPgn,
     savePgn,
     saveAsPdf,
