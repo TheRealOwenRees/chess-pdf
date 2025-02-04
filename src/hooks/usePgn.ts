@@ -4,7 +4,6 @@ import { useAtom } from "jotai/index";
 import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
-import { logError } from "@/server/actions/errorLogging";
 import { Header } from "@/types";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
@@ -93,12 +92,9 @@ const usePgn = () => {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        const response = await logError(error.message);
-        if (response) {
-          toast.error("Something went wrong generating the PDF", {
-            toastId: "pdf-error",
-          });
-        }
+        toast.error("Something went wrong generating the PDF", {
+          toastId: "pdf-error",
+        });
       }
     } finally {
       setGeneratingPDF(false);
