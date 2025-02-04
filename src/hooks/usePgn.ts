@@ -86,13 +86,20 @@ const usePgn = () => {
         }),
       });
 
-      downloadPDF(await response.blob());
-      toast.success("PDF generated successfully", {
-        toastId: "pdf-success",
-      });
+      if (response.ok) {
+        downloadPDF(await response.blob());
+        toast.success("PDF generated successfully", {
+          toastId: "pdf-success",
+        });
+      } else {
+        const body = await response.json();
+        toast.error(body.message, {
+          toastId: "pdf-error",
+        });
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        toast.error("Something went wrong generating the PDF", {
+        toast.error(error.message, {
           toastId: "pdf-error",
         });
       }
