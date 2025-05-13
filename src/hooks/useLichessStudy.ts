@@ -41,14 +41,14 @@ const useLichessStudy = () => {
   }, [lichessUser]);
 
   const importPgn = (chapter: IChapter) => {
-    if (chapter.chapterId) {
+    if (chapter.name) {
       const headers = getHeaders(chapter.pgn);
       gameDispatch({
         type: "SET_GAME",
         payload: { pgn: chapter.pgn, headers: headers },
       });
       toast.success(`${chapter.name} imported successfully`, {
-        toastId: `${chapter.chapterId}-lichess-import-success`,
+        toastId: `${chapter.name}-lichess-import-success`,
       });
     }
   };
