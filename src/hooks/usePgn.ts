@@ -37,7 +37,11 @@ const usePgn = () => {
         }
 
         if (pgnString) {
-          const headers = getHeaders(pgnString);
+          const headers = {
+            ...getHeaders(pgnString),
+            title: "",
+            subtitle: "",
+          };
           gameDispatch({
             type: "SET_GAME",
             payload: { pgn: pgnString, headers: headers },
