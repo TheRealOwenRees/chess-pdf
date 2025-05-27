@@ -15,6 +15,8 @@ const CustomHeaderFields = () => {
           <form className="form-control mt-4 grid place-items-center gap-4 sm:grid-cols-2">
             <FormField fieldName="title" type="text" />
             <FormField fieldName="subtitle" type="text" />
+            <FormField fieldName="date" type="text" />
+            <FormField fieldName="author" type="text" />
           </form>
         </div>
       </details>
