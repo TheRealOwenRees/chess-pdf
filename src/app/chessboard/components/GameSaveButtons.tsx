@@ -9,6 +9,8 @@ const GameSaveButtons = () => {
   const [gameState] = useAtom(gameAtom);
   const { savePgn, saveAsPdf } = usePgn();
 
+  console.log(gameState);
+
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const savePDFButtonText = generatingPDF ? "Generating..." : "Save as PDF";
 

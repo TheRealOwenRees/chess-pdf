@@ -15,17 +15,19 @@ export const defaultHeaderFields = {
   plyCount: "",
   eventDate: "",
   source: "",
-} as Header
+  title: "",
+  subtitle: "",
+} as Header;
 
 // Get the headers from a pgn string
 export const getHeaders = (pgn: string) => {
-  const pgnHeader = pgn.split(/\n\n/g)[0]
+  const pgnHeader = pgn.split(/\n\n/g)[0];
 
   const getHeaderField = (field: string) => {
     const regex = new RegExp(`(?<=${field}.").*(?=")`);
     const match = pgnHeader.match(regex);
-    return match && match[0] !== "undefined" ? match[0] : ""
-  }
+    return match && match[0] !== "undefined" ? match[0] : "";
+  };
 
   return {
     event: getHeaderField("Event"),
@@ -41,12 +43,12 @@ export const getHeaders = (pgn: string) => {
     plyCount: getHeaderField("PlyCount"),
     eventDate: getHeaderField("EventDate"),
     source: getHeaderField("Source"),
-  }
-}
+  };
+};
 
 // Create a string based on new header values
 export const buildPgnString = (game: GameProps) => {
-  const moves = game.pgn?.split(/\n\n/g)[1]
+  const moves = game.pgn?.split(/\n\n/g)[1];
   return `[Event "${game.headers.event}"]
 [Site "${game.headers.site}"]
 [Date "${game.headers.date}"]
@@ -60,5 +62,5 @@ export const buildPgnString = (game: GameProps) => {
 [PlyCount "${game.headers.plyCount}"]
 [EventDate "${game.headers.eventDate}"]
 [Source "${game.headers.source}"]\n
-${moves}`
-}
+${moves}`;
+};
