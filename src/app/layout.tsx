@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
-import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Footer from "@/app/components/Footer";
+import { MatomoAnalytics } from "@/app/components/MatomoAnalytics";
 import Navbar from "@/app/components/Navbar";
 import { Providers } from "@/providers/providers";
 import "@/scss/index.scss";
@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" data-theme="customLightTheme">
       <head>
         <link rel="icon" href="/favicon.svg" sizes="any" />
+        <title>ChessScribe</title>
       </head>
       <Providers>
         <body className={inter.className}>
@@ -37,7 +38,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
             <Footer />
           </div>
-          <Analytics />
+          <Suspense fallback={null}>
+            <MatomoAnalytics />
+          </Suspense>
         </body>
       </Providers>
     </html>
