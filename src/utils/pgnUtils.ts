@@ -53,7 +53,8 @@ export const buildPgnString = (game: GameProps) => {
 
   // if customer headers are present, use them
   if (game.headers.title.length > 0 || game.headers.subtitle.length > 0) {
-    return `[Title "${game.headers.title}"]
+    return `[Result "${game.headers.result}"]
+[Title "${game.headers.title}"]
 [Subtitle "${game.headers.subtitle}"]
 [Date "${game.headers.date}"]
 [Author "${game.headers.author}"]\n
