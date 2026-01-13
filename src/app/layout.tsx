@@ -19,15 +19,14 @@ export const metadata: Metadata = {
   title: "ChessScribe",
   description: "Create PDFs of your chess games from a PGN file",
   keywords: ["chess", "pgn", "pdf", "chess games", "chess notation"],
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" data-theme="customLightTheme">
-      <head>
-        <link rel="icon" href="/favicon.svg" sizes="any" />
-        <title>ChessScribe</title>
-      </head>
       <Providers>
         <body className={inter.className}>
           <div className="grid bg-base-100">
