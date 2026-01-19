@@ -52,7 +52,11 @@ export const buildPgnString = (game: GameProps) => {
   const moves = game.pgn?.split(/\n\n/g)[1];
 
   // if customer headers are present, use them
-  if (game.headers.title.length > 0 || game.headers.subtitle.length > 0) {
+  if (
+    game.headers.title?.length > 0 ||
+    game.headers.subtitle?.length > 0 ||
+    game.headers.author?.length > 0
+  ) {
     return `[Result "${game.headers.result}"]
 [Title "${game.headers.title}"]
 [Subtitle "${game.headers.subtitle}"]
