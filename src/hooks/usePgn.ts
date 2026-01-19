@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
@@ -74,6 +74,7 @@ const usePgn = () => {
   ) => {
     try {
       setGeneratingPDF(true);
+
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
 
@@ -102,6 +103,7 @@ const usePgn = () => {
         });
       }
     } catch (error: unknown) {
+      console.error(error);
       if (error instanceof Error) {
         toast.error(error.message, {
           toastId: "pdf-error",
@@ -110,44 +112,6 @@ const usePgn = () => {
     } finally {
       setGeneratingPDF(false);
     }
-
-    // setGeneratingPDF(true);
-    // const pgnString = buildPgnString(gameState);
-    // const { diagrams } = gameState;
-    // try {
-    //   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
-    //   const response = await fetch(`${apiBaseUrl}/pdf`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       pgn: pgnString,
-    //       diagrams: diagrams,
-    //       diagramClock: gameState.diagramClock,
-    //     }),
-    //   });
-    //
-    //   if (response.ok) {
-    //     downloadPDF(await response.blob());
-    //     toast.success("PDF generated successfully", {
-    //       toastId: "pdf-success",
-    //     });
-    //   } else {
-    //     const body = await response.json();
-    //     toast.error(body.message, {
-    //       toastId: "pdf-error",
-    //     });
-    //   }
-    // } catch (error: unknown) {
-    //   if (error instanceof Error) {
-    //     toast.error(error.message, {
-    //       toastId: "pdf-error",
-    //     });
-    //   }
-    // } finally {
-    //   setGeneratingPDF(false);
-    // }
   };
 
   const updateHeaders = (
