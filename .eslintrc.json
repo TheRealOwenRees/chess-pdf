@@ -1,3 +1,8 @@
 {
-  "extends": ["next", "next/core-web-vitals", "plugin:react-hooks/recommended", "prettier"]
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ]
 }

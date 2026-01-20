@@ -15,12 +15,12 @@
 //$lpv-interesting: hsl(307, 80%, 70%) !default;
 
 /* CSS */
-@import '../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer';
+@import "../../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer";
 
 .lpv-board {
   max-width: 600px;
   --board-color: #b58863;
-  font-family: 'Noto Sans', 'sans-serif';
+  font-family: "Noto Sans", "sans-serif";
 }
 
 //#91b866

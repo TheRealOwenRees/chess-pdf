@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/api/"
+      disallow: "/api/",
     },
-    sitemap: "https://chess-pdf.vercel.app/sitemap.xml"
-  }
+    sitemap: "https://chess-pdf.vercel.app/sitemap.xml",
+  };
 }

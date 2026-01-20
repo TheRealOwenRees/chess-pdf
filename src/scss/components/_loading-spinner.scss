@@ -1,25 +1,29 @@
-@use '../helpers/variables' as var;
+@use "../helpers/variables" as var;
 
 #loading-bar-spinner.spinner {
-    left: 50%;
-    margin-left: -20px;
-    top: 60%;
-    margin-top: -20px;
-    position: absolute;
-    z-index: 19 !important;
-    animation: loading-bar-spinner 400ms linear infinite;
+  left: 50%;
+  margin-left: -20px;
+  top: 60%;
+  margin-top: -20px;
+  position: absolute;
+  z-index: 19 !important;
+  animation: loading-bar-spinner 400ms linear infinite;
 }
 
 #loading-bar-spinner.spinner .spinner-icon {
-    width: 40px;
-    height: 40px;
-    border:  solid 4px transparent;
-    border-top-color:  var.$primary-color !important;
-    border-left-color: var.$primary-color !important;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: solid 4px transparent;
+  border-top-color: var.$primary-color !important;
+  border-left-color: var.$primary-color !important;
+  border-radius: 50%;
 }
 
 @keyframes loading-bar-spinner {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
