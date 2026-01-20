@@ -1,31 +1,33 @@
 import crypto from "crypto";
 
 interface IGetLichessToken {
-  redirectUri: string
-  clientId: string
-  authCode: string
-  codeVerifier: string | undefined
+  redirectUri: string;
+  clientId: string;
+  authCode: string;
+  codeVerifier: string | undefined;
 }
 
 interface ILichessToken {
-  token_type: string
-  access_token: string
-  expires_in: number
+  token_type: string;
+  access_token: string;
+  expires_in: number;
 }
 
 const base64UrlEncode = (str: Buffer) => {
-  return str.toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-}
+  return str
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
+};
 
-const sha256 = (buffer: string) => crypto.createHash('sha256').update(buffer).digest()
-const createVerifier = () => base64UrlEncode(crypto.randomBytes(32))
-const createChallenge = (verifier: string) => base64UrlEncode(sha256(verifier))
+const sha256 = (buffer: string) =>
+  crypto.createHash("sha256").update(buffer).digest();
+const createVerifier = () => base64UrlEncode(crypto.randomBytes(32));
+const createChallenge = (verifier: string) => base64UrlEncode(sha256(verifier));
 
-export const verifier = createVerifier()
-export const challenge = createChallenge(verifier)
+export const verifier = createVerifier();
+export const challenge = createChallenge(verifier);
 
 /**
  * Get the Lichess access token by the authorization code from Lichess
@@ -35,46 +37,51 @@ export const challenge = createChallenge(verifier)
  * @param codeVerifier
  * @returns ILichessToken
  */
-export const accessToken = async ({ redirectUri, clientId, authCode, codeVerifier }: IGetLichessToken): Promise<ILichessToken> => {
-  const response = await fetch('https://lichess.org/api/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+export const accessToken = async ({
+  redirectUri,
+  clientId,
+  authCode,
+  codeVerifier,
+}: IGetLichessToken): Promise<ILichessToken> => {
+  const response = await fetch("https://lichess.org/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      grant_type: 'authorization_code',
+      grant_type: "authorization_code",
       redirect_uri: redirectUri,
       client_id: clientId,
       code: authCode,
-      code_verifier: codeVerifier
-    })
-  })
-  return await response.json()
-}
+      code_verifier: codeVerifier,
+    }),
+  });
+  return await response.json();
+};
 
 /**
  * Revoke the Lichess access token
  * @param token
  */
 export const revokeAccessToken = async (token: string) => {
-  return await fetch('https://lichess.org/api/token', {
-    method: 'DELETE',
+  return await fetch("https://lichess.org/api/token", {
+    method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 /**
  * Get the Lichess User by a valid access token
  * @param token
  */
 export const user = async (token: string) => {
-  const response = await fetch('https://lichess.org/api/account', {
+  const response = await fetch("https://lichess.org/api/account", {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  return await response.json()
-}
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.json();
+};
 
 /**
  * Get the Lichess User Studies by a valid access token
@@ -84,10 +91,10 @@ export const user = async (token: string) => {
 export const userStudies = async (token: string, username: string) => {
   return await fetch(`https://lichess.org/api/study/by/${username}`, {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 /**
  * Get the Lichess Study Chapters by a valid access token
@@ -97,7 +104,7 @@ export const userStudies = async (token: string, username: string) => {
 export const studyChapters = async (token: string, studyId: string) => {
   return await fetch(`https://lichess.org/api/study/${studyId}.pgn`, {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

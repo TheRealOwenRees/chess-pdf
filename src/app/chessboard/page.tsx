@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
+
 import ChessboardLayout from "@/app/chessboard/ChessboardLayout";
 
 export const metadata: Metadata = {
-    title: 'ChessScribe | Chessboard',
-    description: 'Convert your PGN file to a PDF of your chess game'
-}
+  title: "ChessScribe | Chessboard",
+  description: "Convert your PGN file to a PDF of your chess game",
+};
 
 const Chessboard = () => {
-    return (
-        <>
-            <ChessboardLayout />
-        </>
-    )
-}
+  return (
+    <>
+      <ChessboardLayout />
+    </>
+  );
+};
 
-export default Chessboard
+export default Chessboard;
