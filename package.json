@@ -13,7 +13,7 @@
     "check": "npm run prettier && npm run test && npm run build"
   },
   "dependencies": {
-    "@mliebelt/pgn-viewer": "^1.6.10",
+    "@mliebelt/pgn-viewer": "^1.6.11",
     "@socialgouv/matomo-next": "^1.10.0",
     "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.18.0",
