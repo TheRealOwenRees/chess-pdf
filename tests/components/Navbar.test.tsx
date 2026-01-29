@@ -13,7 +13,6 @@ describe("Navbar", () => {
   });
 
   it("links are present and navigable", () => {
-    expect(screen.getByTestId("homepage-nav-logo-link")).toBeInTheDocument();
     expect(screen.getByTestId("homepage-nav-link")).toHaveAttribute(
       "href",
       "/",

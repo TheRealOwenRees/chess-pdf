@@ -14,7 +14,11 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <Link href="/" data-testid="homepage-nav-logo-link">
+          <Link
+            href="/"
+            data-testid="homepage-nav-link"
+            className="flex flex-row items-center justify-center"
+          >
             <Image
               src={logo}
               alt="Chess PDF Logo"
@@ -22,8 +26,7 @@ const Navbar = () => {
               height={50}
               className="mr-4"
             />
-          </Link>
-          <Link href="/" data-testid="homepage-nav-link">
+
             <span className="hidden text-2xl font-extrabold text-primary sm:block">
               ChessScribe
             </span>
