@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: "ChessScribe",
   description: "Create PDFs of your chess games from a PGN file",
   keywords: ["chess", "pgn", "pdf", "chess games", "chess notation"],
+  metadataBase: new URL("https://chess-scribe.org/"),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/favicon.svg",
   },
