@@ -32,6 +32,7 @@ const Footer = () => {
             target="_blank"
             data-testid="github-link"
             className="text-2xl hover:text-secondary-content"
+            aria-label={"Github Link"}
           >
             <LuGithub />
           </Link>
@@ -39,6 +40,7 @@ const Footer = () => {
             href="/contact"
             data-testid="contact-link"
             className="text-2xl hover:text-secondary-content"
+            aria-label={"Contact Link"}
           >
             <LuMail />
           </Link>
