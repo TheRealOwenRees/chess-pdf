@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@mliebelt/pgn-viewer": "^1.6.11",
+    "@owenrees/pgn2tex": "^0.2.2",
     "@socialgouv/matomo-next": "^1.10.0",
     "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.18.0",

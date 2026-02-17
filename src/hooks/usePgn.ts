@@ -1,5 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
+import Pgn2Tex from "@owenrees/pgn2tex";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 
@@ -78,16 +79,21 @@ const usePgn = () => {
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
 
+      const texString = new Pgn2Tex(
+        pgnString,
+        diagrams,
+        gameState.diagramClock,
+      ).toTex();
+
       const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
+
       const response = await fetch(`${apiBaseUrl}/pdf`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pgn: pgnString,
-          diagrams: diagrams,
-          diagramClock: gameState.diagramClock,
+          texString: texString,
         }),
       });
 
