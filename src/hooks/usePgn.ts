@@ -1,5 +1,3 @@
-"use client";
-
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 import Pgn2Tex from "@owenrees/pgn2tex";
@@ -80,8 +78,6 @@ const usePgn = () => {
 
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
-
-      const { default: Pgn2Tex } = await import("@owenrees/pgn2tex");
 
       const texString = new Pgn2Tex(
         pgnString,
