@@ -81,6 +81,8 @@ const usePgn = () => {
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
 
+      const { default: Pgn2Tex } = await import("@owenrees/pgn2tex");
+
       const texString = new Pgn2Tex(
         pgnString,
         diagrams,
