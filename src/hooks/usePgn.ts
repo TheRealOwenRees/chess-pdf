@@ -70,56 +70,6 @@ const usePgn = () => {
     downloadString(pgnString, "game.pgn");
   };
 
-  // const saveAsPdf = async (
-  //   setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
-  // ) => {
-  //   try {
-  //     setGeneratingPDF(true);
-  //
-  //     const { diagrams } = gameState;
-  //     const pgnString = buildPgnString(gameState);
-  //
-  //     const texString = new Pgn2Tex(
-  //       pgnString,
-  //       diagrams,
-  //       gameState.diagramClock,
-  //     ).toTex();
-  //
-  //     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
-  //
-  //     const response = await fetch(`${apiBaseUrl}/pdf`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         texString: texString,
-  //       }),
-  //     });
-  //
-  //     if (response.ok) {
-  //       downloadPDF(await response.blob());
-  //       toast.success("PDF generated successfully", {
-  //         toastId: "pdf-success",
-  //       });
-  //     } else {
-  //       const body = await response.json();
-  //       toast.error(body.message, {
-  //         toastId: "pdf-error",
-  //       });
-  //     }
-  //   } catch (error: unknown) {
-  //     console.error(error);
-  //     if (error instanceof Error) {
-  //       toast.error(error.message, {
-  //         toastId: "pdf-error",
-  //       });
-  //     }
-  //   } finally {
-  //     setGeneratingPDF(false);
-  //   }
-  // };
-
   const saveAsPdf = async (
     setGeneratingPDF: Dispatch<SetStateAction<boolean>>,
   ) => {
@@ -129,17 +79,9 @@ const usePgn = () => {
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
 
-      console.log("=== DEBUG INFO ===");
-      console.log("gameState:", JSON.stringify(gameState, null, 2));
-      console.log("pgnString:", pgnString);
-      console.log("diagrams:", diagrams);
-      console.log("diagramClock:", gameState.diagramClock);
-      console.log("typeof pgnString:", typeof pgnString);
-      console.log("==================");
-
       const texString = new Pgn2Tex(
         pgnString,
-        diagrams ?? [],
+        diagrams,
         gameState.diagramClock,
       ).toTex();
 
@@ -167,15 +109,14 @@ const usePgn = () => {
         });
       }
     } catch (error: unknown) {
-      console.error("=== FULL ERROR ===");
       console.error(error);
       if (error instanceof Error) {
-        console.error("Error message:", error.message);
-        console.error("Error stack:", error.stack);
         toast.error(error.message, {
           toastId: "pdf-error",
         });
       }
+    } finally {
+      setGeneratingPDF(false);
     }
   };
 
