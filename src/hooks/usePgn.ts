@@ -1,10 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-import Pgn2Tex from "@owenrees/pgn2tex";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
+// import Pgn2Tex from "@owenrees/pgn2tex";
+import Pgn2Tex from "@/lib/pgn2tex";
 import { Header } from "@/types";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
