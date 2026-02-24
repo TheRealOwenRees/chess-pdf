@@ -49,7 +49,7 @@ export const getHeaders = (pgn: string) => {
 
 // Create a string based on new header values
 export const buildPgnString = (game: GameProps) => {
-  const moves = game.pgn?.split(/\n\n/g)[1];
+  const moves = game.pgn?.split(/\n\n/g)[1] ?? "";
 
   // if customer headers are present, use them
   if (
