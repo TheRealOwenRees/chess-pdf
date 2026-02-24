@@ -4,8 +4,6 @@ import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 
 import { gameAtom } from "@/atoms";
-// import Pgn2Tex from "@owenrees/pgn2tex";
-import Pgn2Tex from "@/lib/pgn2tex";
 import { Header } from "@/types";
 import { downloadPDF } from "@/utils/pdfUtils";
 import { buildPgnString, getHeaders } from "@/utils/pgnUtils";
@@ -80,12 +78,6 @@ const usePgn = () => {
       const { diagrams } = gameState;
       const pgnString = buildPgnString(gameState);
 
-      const texString = new Pgn2Tex(
-        pgnString,
-        diagrams,
-        gameState.diagramClock,
-      ).toTex();
-
       const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
       const response = await fetch(`${apiBaseUrl}/pdf`, {
@@ -94,7 +86,9 @@ const usePgn = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          texString: texString,
+          pgn: pgnString,
+          diagrams: diagrams,
+          diagramClock: gameState.diagramClock,
         }),
       });
 
