@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 import Pgn2Tex from "@owenrees/pgn2tex";
